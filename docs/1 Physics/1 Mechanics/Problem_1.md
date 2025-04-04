@@ -20,9 +20,10 @@ In addition, this problem serves as an entry point to explore more complex syste
 The motion of a projectile in the absence of air resistance is governed by Newton's laws of motion. To simplify the analysis, we divide the motion into horizontal and vertical components.
  
 - **Horizontal Motion**:
-  \[
-  x(t) = v_0 \cdot \cos(\theta) \cdot t
-  \]
+$$
+x(t) = v_0 \cdot \cos(\theta) \cdot t
+$$
+
   Where:
   - \(x(t)\) is the horizontal position at time \(t\),
   - \(v_0\) is the initial velocity,
@@ -78,9 +79,9 @@ This graph shows how horizontal motion changes over time. The **horizontal motio
 
 
 - **Vertical Motion**:  
-  \[
-  y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
-  \]
+ $$
+y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
+$$
 
   Where:
   - \( y(t) \) is the **vertical position** at time \( t \),
@@ -194,28 +195,29 @@ Given:
 We use the following formulas:
 
 1. **Time of Flight**:
-\[
+$$
 t_{\text{total}} = \frac{2 v_0 \cdot \sin(\theta)}{g} 
-\]
-\[
+$$
+$$
 t_{\text{total}} = \frac{2 \cdot 20 \cdot \sin(30^\circ)}{9.81} = \frac{20}{9.81} \approx \boxed{2.04 \, \text{seconds}}
-\]
+$$
 
 2. **Range (Horizontal Distance)**:
-\[
+$$
 R = \frac{v_0^2 \cdot \sin(2\theta)}{g}
-\]
-\[
+$$
+$$
 R = \frac{400 \cdot \sin(60^\circ)}{9.81} = \frac{400 \cdot 0.866}{9.81} \approx \frac{346.4}{9.81} \approx \boxed{35.3 \, \text{meters}}
-\]
+$$
 
 3. **Maximum Height**:
-\[
+$$
 H_{\text{max}} = \frac{v_0^2 \cdot \sin^2(\theta)}{2g}
-\]
-\[
+$$
+$$
 H_{\text{max}} = \frac{400 \cdot \sin^2(30^\circ)}{2 \cdot 9.81} = \frac{400 \cdot 0.25}{19.62} = \frac{100}{19.62} \approx \boxed{5.1 \, \text{meters}}
-\]
+$$
+
 
 
 ###  Final Answers:
