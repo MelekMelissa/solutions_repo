@@ -184,15 +184,15 @@
 <p>The motion of a projectile in the absence of air resistance is governed by Newton's laws of motion. To simplify the analysis, we divide the motion into horizontal and vertical components.</p>
 <ul>
 <li><strong>Horizontal Motion</strong>:
-  [
-  x(t) = v_0 \cdot \cos(\theta) \cdot t
-  ]
-  Where:</li>
-<li><span class="arithmatex">\(x(t)\)</span> is the horizontal position at time <span class="arithmatex">\(t\)</span>,</li>
-<li><span class="arithmatex">\(v_0\)</span> is the initial velocity,</li>
-<li><span class="arithmatex">\(\theta\)</span> is the launch angle,</li>
-<li><span class="arithmatex">\(t\)</span> is the time elapsed.</li>
+$$
+x(t) = v_0 \cdot \cos(\theta) \cdot t
+$$</li>
 </ul>
+<p>Where:
+  - <span class="arithmatex">\(x(t)\)</span> is the horizontal position at time <span class="arithmatex">\(t\)</span>,
+  - <span class="arithmatex">\(v_0\)</span> is the initial velocity,
+  - <span class="arithmatex">\(\theta\)</span> is the launch angle,
+  - <span class="arithmatex">\(t\)</span> is the time elapsed.</p>
 <p>Since there is no acceleration in the horizontal direction (assuming no air resistance), the horizontal velocity remains constant.</p>
 <details>
 <summary>Show Python Code</summary>
@@ -236,9 +236,9 @@
 <p>This graph shows how horizontal motion changes over time. The <strong>horizontal motion equation</strong> <span class="arithmatex">\( x(t) = v_0 \cdot \cos(\theta) \cdot t \)</span> is used to describe it. Here, horizontal distance increases linearly with time <span class="arithmatex">\( t \)</span>. The graph illustrates how the horizontal distances of projectiles with different initial velocities (10 m/s, 20 m/s, 30 m/s) change over time.</p>
 <ul>
 <li><strong>Vertical Motion</strong>:<br/>
-  [
-  y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
-  ]</li>
+ $$
+y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
+$$</li>
 </ul>
 <p>Where:
   - <span class="arithmatex">\( y(t) \)</span> is the <strong>vertical position</strong> at time <span class="arithmatex">\( t \)</span>,
@@ -335,30 +335,30 @@ Assume there is no air resistance and take the acceleration due to gravity as <s
 <ol>
 <li>
 <p><strong>Time of Flight</strong>:
-[
+$$
 t_{\text{total}} = \frac{2 v_0 \cdot \sin(\theta)}{g} 
-]
-[
+$$
+$$
 t_{\text{total}} = \frac{2 \cdot 20 \cdot \sin(30^\circ)}{9.81} = \frac{20}{9.81} \approx \boxed{2.04 \, \text{seconds}}
-]</p>
+$$</p>
 </li>
 <li>
 <p><strong>Range (Horizontal Distance)</strong>:
-[
+$$
 R = \frac{v_0^2 \cdot \sin(2\theta)}{g}
-]
-[
+$$
+$$
 R = \frac{400 \cdot \sin(60^\circ)}{9.81} = \frac{400 \cdot 0.866}{9.81} \approx \frac{346.4}{9.81} \approx \boxed{35.3 \, \text{meters}}
-]</p>
+$$</p>
 </li>
 <li>
 <p><strong>Maximum Height</strong>:
-[
+$$
 H_{\text{max}} = \frac{v_0^2 \cdot \sin^2(\theta)}{2g}
-]
-[
+$$
+$$
 H_{\text{max}} = \frac{400 \cdot \sin^2(30^\circ)}{2 \cdot 9.81} = \frac{400 \cdot 0.25}{19.62} = \frac{100}{19.62} \approx \boxed{5.1 \, \text{meters}}
-]</p>
+$$</p>
 </li>
 </ol>
 <h3 id="final-answers">Final Answers:</h3>
