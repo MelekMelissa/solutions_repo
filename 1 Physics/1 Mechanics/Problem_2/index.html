@@ -172,6 +172,330 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2">Problem 2</h1>
+<h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum">Investigating the Dynamics of a Forced Damped Pendulum</h1>
+<h2 id="1-theoretical-foundation">1. Theoretical Foundation</h2>
+<h3 id="governing-equation">Governing Equation</h3>
+<p>The motion of a forced damped pendulum is governed by the following nonlinear second-order differential equation:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \sin(\theta) = A \cos(\omega t)
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(\theta(t)\)</span> is the angular displacement,
+- <span class="arithmatex">\(\gamma\)</span> is the damping coefficient,
+- <span class="arithmatex">\(\omega_0 = \sqrt{\frac{g}{l}}\)</span> is the natural frequency of the pendulum,
+- <span class="arithmatex">\(A\)</span> is the amplitude of the external driving force,
+- <span class="arithmatex">\(\omega\)</span> is the angular frequency of the external force.</p>
+<hr/>
+<h3 id="small-angle-approximation">Small-Angle Approximation</h3>
+<p>For small angles <span class="arithmatex">\(\theta \ll 1\)</span>, we can approximate <span class="arithmatex">\(\sin(\theta) \approx \theta\)</span>. The equation becomes linear:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
+\]</div>
+<p>This is the equation of a <strong>driven damped harmonic oscillator</strong>.</p>
+<p>For small angles (<span class="arithmatex">\(\theta \ll 1\)</span>), we can approximate <span class="arithmatex">\(\sin(\theta) \approx \theta\)</span>, which simplifies the nonlinear equation into a linear one:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
+\]</div>
+<p>This is the differential equation of a <strong>driven damped harmonic oscillator</strong>.</p>
+<p>This approximation significantly simplifies the analysis of the system, allowing us to use linear system techniques. It is valid when the pendulum undergoes small oscillations. Under this condition, the system's response becomes periodic, and important characteristics such as amplitude, frequency, and phase shift can be computed analytically.</p>
+<p>Moreover, this model is not only applicable to mechanical pendulums but also widely used to describe analogous systems in other fields, such as AC electrical circuits, vibrating structural elements, and biomechanical oscillations. </p>
+<p>Now that the equation has been linearized under the small-angle approximation, we can proceed to solve it analytically using classical methods for linear differential equations.</p>
+<h3 id="solution-method-for-small-angle-approximation">Solution Method (for Small-Angle Approximation)</h3>
+<p>Once the equation is linearized under the small-angle assumption, we obtain:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
+\]</div>
+<p>This second-order linear nonhomogeneous differential equation is typically solved by breaking the solution into two parts:</p>
+<div class="arithmatex">\[
+\theta(t) = \theta_h(t) + \theta_p(t)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\theta_h(t)\)</span>: The homogeneous solution (natural response, dependent on initial conditions)</li>
+<li><span class="arithmatex">\(\theta_p(t)\)</span>: The particular solution (steady-state response due to the driving force)</li>
+</ul>
+<hr/>
+<h4 id="homogeneous-solution">Homogeneous Solution</h4>
+<p>The homogeneous equation is:</p>
+<p>[
+\frac{d^2\theta}{dt^
+This equation describes the behavior of a <strong>damped harmonic oscillator</strong>. Its general solution is given by:</p>
+<div class="arithmatex">\[
+\theta_h(t) = e^{-\frac{\gamma t}{2}} \left(C_1 \cos(\omega_d t) + C_2 \sin(\omega_d t)\right)
+\]</div>
+<p>Here, <span class="arithmatex">\(\omega_d\)</span> is the <strong>damped natural frequency</strong>, defined as:</p>
+<div class="arithmatex">\[
+\omega_d = \sqrt{\omega_0^2 - \left(\frac{\gamma}{2}\right)^2}
+\]</div>
+<p>This solution represents the <strong>transient behavior</strong> of the system, which decays over time depending on the initial conditions.</p>
+<p>It reflects the natural response of the system, determined solely by the initial state. Due to the damping term, the oscillations gradually decrease in amplitude, indicating that the system loses energy over time.</p>
+<p>Depending on the value of the damping coefficient <span class="arithmatex">\(\gamma\)</span>, different types of motion can be observed:</p>
+<ul>
+<li><strong>Underdamped</strong> (<span class="arithmatex">\(\gamma &lt; 2\omega_0\)</span>): Oscillatory motion persists but with decreasing amplitude.</li>
+<li><strong>Critically damped</strong> (<span class="arithmatex">\(\gamma = 2\omega_0\)</span>): The system returns to equilibrium in the shortest time without oscillating.</li>
+<li><strong>Overdamped</strong> (<span class="arithmatex">\(\gamma &gt; 2\omega_0\)</span>): The system slowly returns to equilibrium without oscillations.</li>
+</ul>
+<p>These three regimes have important implications for the system's stability and energy dissipation.</p>
+<hr/>
+<h3 id="approximate-solution">Approximate Solution</h3>
+<p>We solve the linearized ODE using a trial solution:</p>
+<div class="arithmatex">\[
+\theta(t) = \theta_h(t) + \theta_p(t)
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(\theta_h(t)\)</span> is the homogeneous solution (damped free oscillation),
+- <span class="arithmatex">\(\theta_p(t)\)</span> is the particular solution (steady-state response to the driving force).</p>
+<p>The steady-state (particular) solution is:</p>
+<div class="arithmatex">\[
+\theta_p(t) = B \cos(\omega t - \delta)
+\]</div>
+<p>With amplitude:</p>
+<div class="arithmatex">\[
+B = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + \gamma^2 \omega^2}}
+\]</div>
+<p>And phase lag:</p>
+<p>[
+\tan(\delta) = \frac{\gamma \omega}{\omega_0^2 - \omega^2}
+]
+This particular solution represents the <strong>steady-state response</strong> of the system under the influence of a periodic external force. Unlike the homogeneous (transient) solution, which decays over time due to damping, the particular solution persists and oscillates at the same frequency as the driving force.</p>
+<p>The amplitude <span class="arithmatex">\(B\)</span> depends on the damping coefficient <span class="arithmatex">\(\gamma\)</span>, the driving frequency <span class="arithmatex">\(\omega\)</span>, and the natural frequency <span class="arithmatex">\(\omega_0\)</span>. Therefore, the system’s response changes significantly depending on how close <span class="arithmatex">\(\omega\)</span> is to <span class="arithmatex">\(\omega_0\)</span>.</p>
+<hr/>
+<h3 id="resonance">Resonance</h3>
+<p>Resonance occurs when the system absorbs energy most efficiently from the driving force:</p>
+<ul>
+<li><strong>Underdamped resonance frequency</strong>:</li>
+</ul>
+<div class="arithmatex">\[
+\omega_r = \sqrt{\omega_0^2 - \frac{\gamma^2}{2}}
+\]</div>
+<p>At resonance, the amplitude <span class="arithmatex">\(B\)</span> is maximized, and the energy stored in the system oscillates at large values.</p>
+<hr/>
+<h3 id="resonance-behavior">Resonance Behavior</h3>
+<p>When the driving frequency <span class="arithmatex">\(\omega\)</span> approaches the system's natural frequency <span class="arithmatex">\(\omega_0\)</span>, the amplitude reaches its maximum value. This phenomenon is known as <strong>resonance</strong>.</p>
+<p>From the amplitude expression:</p>
+<div class="arithmatex">\[
+B = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + \gamma^2 \omega^2}}
+\]</div>
+<p>it is clear that the denominator becomes minimal when <span class="arithmatex">\(\omega \approx \omega_0\)</span>, especially for small <span class="arithmatex">\(\gamma\)</span>, resulting in a large amplitude.</p>
+<p>In the presence of damping, the resonance frequency shifts slightly lower than <span class="arithmatex">\(\omega_0\)</span>, and is given by:</p>
+<div class="arithmatex">\[
+\omega_r = \sqrt{\omega_0^2 - \frac{\gamma^2}{2}}
+\]</div>
+<p>At this frequency, the system resonates with the external force and absorbs energy most efficiently. As damping increases, the peak amplitude decreases, and the resonance curve becomes broader and flatter.</p>
+<details>
+<summary>Show Python Code</summary>
+<pre><code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+# System parameters
+omega_0 = 1.0      # Natural frequency
+A = 1.0            # Amplitude of the external force
+
+# Different damping coefficients
+gammas = [0.0, 0.2, 0.5, 1.0]  # From undamped to highly damped
+
+# Frequency range
+omega = np.linspace(0.1, 2.0, 500)
+
+# Plot
+plt.figure(figsize=(10, 6))
+
+for gamma in gammas:
+    B = A / np.sqrt((omega_0**2 - omega**2)**2 + (gamma**2) * omega**2)
+    label = f"γ = {gamma}"
+    plt.plot(omega, B, label=label)
+
+plt.title("Amplitude vs Driving Frequency (Resonance Curve)")
+plt.xlabel("Driving Frequency (ω)")
+plt.ylabel("Amplitude (B)")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-11.png"/></p>
+<h3 id="resonance-curve">Resonance Curve</h3>
+<p>The plot shows the amplitude (<span class="arithmatex">\(B\)</span>) of the system's steady-state response as a function of the driving frequency (<span class="arithmatex">\(\omega\)</span>) for different damping coefficients (<span class="arithmatex">\(\gamma\)</span>).</p>
+<ul>
+<li><strong>Blue (γ = 0.0):</strong> No damping, sharp resonance peak.</li>
+<li><strong>Orange (γ = 0.2):</strong> Light damping, resonance peak reduces.</li>
+<li><strong>Yellow (γ = 0.5):</strong> Moderate damping, broader resonance.</li>
+<li><strong>Green (γ = 1.0):</strong> High damping, minimal resonance effect.</li>
+</ul>
+<hr/>
+<h2 id="2-analysis-of-dynamics">2. Analysis of Dynamics</h2>
+<h3 id="parameter-influence">Parameter Influence</h3>
+<ul>
+<li><strong>Damping <span class="arithmatex">\(\gamma\)</span></strong>: Higher damping suppresses oscillations and reduces the resonance peak.</li>
+<li><strong>Driving amplitude <span class="arithmatex">\(A\)</span></strong>: Larger amplitude can lead to more energy in the system and chaotic behavior in the nonlinear regime.</li>
+<li><strong>Driving frequency <span class="arithmatex">\(\omega\)</span></strong>: Resonance and dynamic behavior depend critically on matching <span class="arithmatex">\(\omega\)</span> with <span class="arithmatex">\(\omega_0\)</span>.</li>
+</ul>
+<details>
+<summary>Show Python Code</summary>
+<pre><code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+# System parameters
+omega_0 = 1.0  # Natural frequency
+A_values = np.linspace(0.1, 2.0, 10)  # Driving amplitude
+gamma_values = np.linspace(0.0, 2.0, 10)  # Damping coefficient
+omega = np.linspace(0.1, 2.0, 500)  # Frequency range
+
+# Create a meshgrid for plotting
+A_grid, gamma_grid = np.meshgrid(A_values, gamma_values)
+
+# Calculate amplitude (B)
+B_grid = np.zeros_like(A_grid)
+
+# Calculate for all omega values
+for i in range(len(A_values)):
+    for j in range(len(gamma_values)):
+        B = A_values[i] / np.sqrt((omega_0**2 - omega**2)**2 + (gamma_values[j]**2) * omega**2)
+        # Take the mean amplitude
+        B_grid[i, j] = np.mean(B)
+
+# Plot heatmap
+plt.figure(figsize=(10, 6))
+
+# Update color palette and levels
+plt.contourf(gamma_grid, A_grid, B_grid, levels=50, cmap='plasma')
+plt.colorbar(label='Amplitude (B)')
+
+plt.title('Heatmap of Amplitude vs Damping Coefficient and Driving Amplitude')
+plt.xlabel('Damping Coefficient (γ) – Effect on Amplitude')
+plt.ylabel('Driving Amplitude (A) – Impact on Resonance')
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-12.png"/>
+This heatmap shows how the system's amplitude (<span class="arithmatex">\(B\)</span>) changes with the <strong>damping coefficient (<span class="arithmatex">\(\gamma\)</span>)</strong> and <strong>driving amplitude (<span class="arithmatex">\(A\)</span>)</strong>. Darker colors represent lower amplitudes, while lighter colors indicate higher amplitudes.</p>
+<hr/>
+<h3 id="from-regular-to-chaotic-motion">From Regular to Chaotic Motion</h3>
+<p>In the nonlinear regime (<span class="arithmatex">\(\sin(\theta)\)</span> not approximated), the pendulum exhibits:</p>
+<ul>
+<li><strong>Periodic motion</strong>: For small <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(\gamma\)</span>.</li>
+<li><strong>Quasiperiodic motion</strong>: Motion composed of multiple frequencies.</li>
+<li><strong>Chaotic motion</strong>: Sensitive dependence on initial conditions; non-repeating trajectory.</li>
+</ul>
+<h3 id="differences-between-periodic-and-chaotic-motion">Differences Between Periodic and Chaotic Motion</h3>
+<h4 id="periodic-motion"><strong>Periodic Motion</strong>:</h4>
+<p>Periodic motion is a type of motion where the system moves in a regular and repeating manner. When the initial conditions are the same, the motion repeats in the same way each time.</p>
+<p><strong>Example</strong>: Spring system or a pendulum swinging with small angles.</p>
+<h4 id="chaotic-motion"><strong>Chaotic Motion</strong>:</h4>
+<p>Chaotic motion is sensitive to initial conditions and is unpredictable. Small changes can lead to large differences, making the motion irregular.</p>
+<p><strong>Example</strong>: Weather patterns and the double pendulum.</p>
+<hr/>
+<h3 id="quasiperiodic-motion"><strong>Quasiperiodic Motion</strong></h3>
+<p>Quasiperiodic motion consists of a combination of multiple frequencies. The system exhibits regular motion but creates a complex pattern due to the influence of multiple frequencies.</p>
+<p><strong>Example</strong>: Vibrating guitar strings and rotating fluids.</p>
+<hr/>
+<h2 id="3-practical-applications">3. Practical Applications</h2>
+<h3 id="real-world-relevance">Real-World Relevance</h3>
+<ul>
+<li><strong>Energy harvesting</strong>: Using resonance in oscillators to extract ambient energy.</li>
+<li><strong>Suspension bridges</strong>: Analyzing dynamic load responses (e.g., Tacoma Narrows Bridge).</li>
+<li><strong>RLC circuits</strong>: Analogous system with voltage in place of angular displacement.</li>
+<li><strong>Biomechanics</strong>: Human walking rhythm can exhibit similar synchronization effects.</li>
+</ul>
+<hr/>
+<h2 id="4-implementation-python-simulation">4. Implementation (Python Simulation)</h2>
+<details>
+<summary>Show Python Code</summary>
+<pre><code>
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Parameters
+gamma = 0.2        # damping
+omega0 = 1.5       # natural frequency
+A = 1.2            # driving amplitude
+omega = 2/3        # driving frequency
+
+# ODE system: dtheta/dt = omega, domega/dt = ...
+def pendulum(t, y):
+    theta, omega_dot = y
+    dtheta_dt = omega_dot
+    domega_dt = -gamma * omega_dot - omega0**2 * np.sin(theta) + A * np.cos(omega * t)
+    return [dtheta_dt, domega_dt]
+
+# Time range
+t_span = (0, 100)
+t_eval = np.linspace(*t_span, 10000)
+
+# Initial conditions
+y0 = [0.2, 0.0]  # initial angle, initial angular velocity
+
+# Solve ODE
+sol = solve_ivp(pendulum, t_span, y0, t_eval=t_eval)
+
+# Plotting
+plt.figure(figsize=(10, 4))
+plt.plot(sol.t, sol.y[0])
+plt.title("Forced Damped Pendulum Motion")
+plt.xlabel("Time")
+plt.ylabel("Angle θ(t)")
+plt.grid()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-13.png"/></p>
+<hr/>
+<h3 id="phase-diagram">Phase Diagram</h3>
+<details>
+<summary>Show Python Code</summary>
+<pre><code>
+plt.figure(figsize=(6, 6))
+plt.plot(sol.y[0], sol.y[1], lw=0.5)
+plt.title("Phase Portrait")
+plt.xlabel("θ")
+plt.ylabel("dθ/dt")
+plt.grid()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-14.png"/></p>
+<hr/>
+<h3 id="poincare-section">Poincaré Section</h3>
+<details>
+<summary>Show Python Code</summary>
+<pre><code>
+# Sample once per driving period
+T_drive = 2 * np.pi / omega
+points = np.arange(0, t_span[1], T_drive)
+theta_sampled = np.interp(points, sol.t, sol.y[0])
+omega_sampled = np.interp(points, sol.t, sol.y[1])
+
+plt.figure(figsize=(6, 6))
+plt.plot(theta_sampled % (2 * np.pi), omega_sampled, 'o', markersize=1)
+plt.title("Poincaré Section")
+plt.xlabel("θ mod 2π")
+plt.ylabel("dθ/dt")
+plt.grid()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-15.png"/></p>
+<hr/>
+<h2 id="5-extensions-and-limitations">5. Extensions and Limitations</h2>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Small-angle approximation fails for large oscillations.</li>
+<li>Real systems might involve nonlinear damping or non-periodic forces.</li>
+<li>Numerical instability for very stiff systems or long-time integration.</li>
+</ul>
+<h3 id="possible-extensions">Possible Extensions</h3>
+<ul>
+<li>Introduce nonlinear damping: <span class="arithmatex">\( \propto (\frac{d\theta}{dt})^3 \)</span></li>
+<li>Replace periodic force with stochastic or pulse-driven input.</li>
+<li>Investigate coupling multiple pendula for synchronization studies.</li>
+</ul>
+<hr/>
+<h2 id="6-conclusion">6. Conclusion</h2>
+<p>The forced damped pendulum is a foundational model that demonstrates transitions from order to chaos, governed by tunable parameters. It serves as a rich testing ground for both analytical techniques and computational simulations and has real-world relevance in many domains of science and engineering.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
