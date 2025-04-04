@@ -183,66 +183,68 @@
 <h3 id="1-governing-equations-of-motion">1. Governing Equations of Motion</h3>
 <p>The motion of a projectile in the absence of air resistance is governed by Newton's laws of motion. To simplify the analysis, we divide the motion into horizontal and vertical components.</p>
 <ul>
-<li>
-<p><strong>Horizontal Motion</strong>: 
-    [
-    x(t) = v_0 \cdot \cos(\theta) \cdot t
-    ]
-    Where:</p>
-<ul>
-<li><span class="arithmatex">\( x(t) \)</span> is the horizontal position at time <span class="arithmatex">\( t \)</span>,</li>
-<li><span class="arithmatex">\( v_0 \)</span> is the initial velocity,</li>
-<li><span class="arithmatex">\( \theta \)</span> is the launch angle,</li>
-<li><span class="arithmatex">\( t \)</span> is the time elapsed.</li>
+<li><strong>Horizontal Motion</strong>:
+  [
+  x(t) = v_0 \cdot \cos(\theta) \cdot t
+  ]
+  Where:</li>
+<li><span class="arithmatex">\(x(t)\)</span> is the horizontal position at time <span class="arithmatex">\(t\)</span>,</li>
+<li><span class="arithmatex">\(v_0\)</span> is the initial velocity,</li>
+<li><span class="arithmatex">\(\theta\)</span> is the launch angle,</li>
+<li><span class="arithmatex">\(t\)</span> is the time elapsed.</li>
 </ul>
-<p>Since there is no acceleration in the horizontal direction (assuming no air resistance), the horizontal velocity remains constant.
+<p>Since there is no acceleration in the horizontal direction (assuming no air resistance), the horizontal velocity remains constant.</p>
 <details>
-<br/>
 <summary>Show Python Code</summary>
-</details></p>
-</li>
-</ul>
-<p>```python
+<pre><code>
   import numpy as np
-  import matplotlib.pyplot as plt</p>
-<p># Parameters for the plot
+  import matplotlib.pyplot as plt
+
+  # Parameters for the plot
   v_0_values = [10, 20, 30]  # Different initial velocities
   theta = 45  # Launch angle in degrees
-  g = 9.81  # Acceleration due to gravity (m/s^2)</p>
-<p># Create a figure
-  plt.figure(figsize=(10, 6))</p>
-<p># Loop over different initial velocities to plot horizontal motion for each case
+  g = 9.81  # Acceleration due to gravity (m/s^2)
+
+  # Create a figure
+  plt.figure(figsize=(10, 6))
+
+  # Loop over different initial velocities to plot horizontal motion for each case
   for v_0 in v_0_values:
       t_max = 2 * v_0 * np.sin(np.radians(theta)) / g  # Total time of flight
       t = np.linspace(0, t_max, 1000)  # Time values from 0 to t_max
-      x_t = v_0 * np.cos(np.radians(theta)) * t  # Horizontal position equation</p>
-<pre><code>  # Plot the horizontal motion for each initial velocity
-  plt.plot(t, x_t, label=f'v_0 = {v_0} m/s', linewidth=2)
-</code></pre>
-<p># Add labels, title, and grid
-  plt.title(r'Horizontal Motion of a Projectile: <span class="arithmatex">\(x(t) = v_0 \cdot \cos(\theta) \cdot t\)</span>', fontsize=14)
+      x_t = v_0 * np.cos(np.radians(theta)) * t  # Horizontal position equation
+
+      # Plot the horizontal motion for each initial velocity
+      plt.plot(t, x_t, label=f'v_0 = {v_0} m/s', linewidth=2)
+
+  # Add labels, title, and grid
+  plt.title(r'Horizontal Motion of a Projectile: $x(t) = v_0 \cdot \cos(\theta) \cdot t$', fontsize=14)
   plt.xlabel('Time (seconds)', fontsize=12)
   plt.ylabel('Horizontal Position (meters)', fontsize=12)
   plt.legend(loc='upper left', fontsize=10)
-  plt.grid(True, which='both', linestyle='--', linewidth=0.5)</p>
-<p># Use a default style for better compatibility
-  plt.style.use('ggplot')</p>
-<p># Show the plot
+  plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+
+  # Use a default style for better compatibility
+  plt.style.use('ggplot')
+
+  # Show the plot
   plt.tight_layout()
   plt.show()
-<img alt="alt text" src="../image-1.png"/>
-This graph shows how horizontal motion changes over time. The <strong>horizontal motion equation</strong> <span class="arithmatex">\( x(t) = v_0 \cdot \cos(\theta) \cdot t \)</span> is used to describe it. Here, horizontal distance increases linearly with time <span class="arithmatex">\( t \)</span>. The graph illustrates how the horizontal distances of projectiles with different initial velocities (10 m/s, 20 m/s, 30 m/s) change over time.</p>
+  </code></pre>
+</details>
+<p><img alt="alt text" src="../image-1.png"/></p>
+<p>This graph shows how horizontal motion changes over time. The <strong>horizontal motion equation</strong> <span class="arithmatex">\( x(t) = v_0 \cdot \cos(\theta) \cdot t \)</span> is used to describe it. Here, horizontal distance increases linearly with time <span class="arithmatex">\( t \)</span>. The graph illustrates how the horizontal distances of projectiles with different initial velocities (10 m/s, 20 m/s, 30 m/s) change over time.</p>
 <ul>
-<li><strong>Vertical Motion</strong>: 
-[
-y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
-]</li>
+<li><strong>Vertical Motion</strong>:<br/>
+  [
+  y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
+  ]</li>
 </ul>
 <p>Where:
- - <span class="arithmatex">\( y(t) \)</span>: The vertical position at time <span class="arithmatex">\( t \)</span>,
- - <span class="arithmatex">\( v_0 \cdot \sin(\theta) \)</span>: The vertical component of the initial velocity,
- - <span class="arithmatex">\( g \)</span>: Gravitational acceleration (<span class="arithmatex">\( \approx 9.81 \, \text{m/s}^2 \)</span> on Earth),
-- <span class="arithmatex">\( t \)</span>: The time elapsed.</p>
+  - <span class="arithmatex">\( y(t) \)</span> is the <strong>vertical position</strong> at time <span class="arithmatex">\( t \)</span>,
+  - <span class="arithmatex">\( v_0 \cdot \sin(\theta) \)</span> is the <strong>vertical component</strong> of the initial velocity,
+  - <span class="arithmatex">\( g \)</span> is the <strong>gravitational acceleration</strong> (<span class="arithmatex">\( \approx 9.81 \, \text{m/s}^2 \)</span> on Earth),
+  - <span class="arithmatex">\( t \)</span> is the <strong>time elapsed</strong>.</p>
 <p>The projectile reaches the maximum height when the vertical velocity component becomes zero. From this point, it starts descending until it reaches the ground. The total time of flight can be found by solving the vertical motion equation for when <span class="arithmatex">\( y(t) = 0 \)</span>.</p>
 <details>
 <summary>Show Python Code</summary>
@@ -332,21 +334,30 @@ Assume there is no air resistance and take the acceleration due to gravity as <s
 <p>We use the following formulas:</p>
 <ol>
 <li>
-<p><strong>Time of Flight:</strong>
+<p><strong>Time of Flight</strong>:
 [
-t_{\text{total}} = \frac{2 v_0 \cdot \sin(\theta)}{g} = \frac{2 \cdot 20 \cdot \sin(30^\circ)}{9.81} = \frac{20}{9.81} \approx \boxed{2.04 \, \text{seconds}}
+t_{\text{total}} = \frac{2 v_0 \cdot \sin(\theta)}{g} 
+]
+[
+t_{\text{total}} = \frac{2 \cdot 20 \cdot \sin(30^\circ)}{9.81} = \frac{20}{9.81} \approx \boxed{2.04 \, \text{seconds}}
 ]</p>
 </li>
 <li>
-<p><strong>Range (Horizontal Distance):</strong>
+<p><strong>Range (Horizontal Distance)</strong>:
 [
-R = \frac{v_0^2 \cdot \sin(2\theta)}{g} = \frac{400 \cdot \sin(60^\circ)}{9.81} = \frac{400 \cdot 0.866}{9.81} \approx \frac{346.4}{9.81} \approx \boxed{35.3 \, \text{meters}}
+R = \frac{v_0^2 \cdot \sin(2\theta)}{g}
+]
+[
+R = \frac{400 \cdot \sin(60^\circ)}{9.81} = \frac{400 \cdot 0.866}{9.81} \approx \frac{346.4}{9.81} \approx \boxed{35.3 \, \text{meters}}
 ]</p>
 </li>
 <li>
-<p><strong>Maximum Height:</strong>
+<p><strong>Maximum Height</strong>:
 [
-H_{\text{max}} = \frac{v_0^2 \cdot \sin^2(\theta)}{2g} = \frac{400 \cdot \sin^2(30^\circ)}{2 \cdot 9.81} = \frac{400 \cdot 0.25}{19.62} = \frac{100}{19.62} \approx \boxed{5.1 \, \text{meters}}
+H_{\text{max}} = \frac{v_0^2 \cdot \sin^2(\theta)}{2g}
+]
+[
+H_{\text{max}} = \frac{400 \cdot \sin^2(30^\circ)}{2 \cdot 9.81} = \frac{400 \cdot 0.25}{19.62} = \frac{100}{19.62} \approx \boxed{5.1 \, \text{meters}}
 ]</p>
 </li>
 </ol>
