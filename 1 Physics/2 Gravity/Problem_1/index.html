@@ -182,22 +182,14 @@
 <hr/>
 <h2 id="derivation-of-keplers-third-law-for-circular-orbits">Derivation of Kepler's Third Law for Circular Orbits</h2>
 <p>We begin with Newton's Law of Universal Gravitation and the requirement for centripetal force to sustain circular motion:</p>
-<p><strong>Gravitational force:</strong>
-[
-F_g = \frac{G M m}{r^2}
-]</p>
-<p><strong>Centripetal force required for circular motion:</strong>
-[
-F_c = \frac{m v^2}{r}
-]</p>
-<p>Equating the two forces:
-[
-\frac{G M m}{r^2} = \frac{m v^2}{r}
-]</p>
-<p>Cancel <span class="arithmatex">\( m \)</span> and multiply both sides by <span class="arithmatex">\( r \)</span>:
-[
-\frac{G M}{r} = v^2
-]</p>
+<p><strong>Gravitational force:</strong><br/>
+Fg = (G * M * m) / r²</p>
+<p><strong>Centripetal force required for circular motion:</strong><br/>
+Fc = (m * v²) / r</p>
+<p><strong>Equating the two forces:</strong><br/>
+(G * M * m) / r² = (m * v²) / r</p>
+<p><strong>Cancel m and multiply both sides by r:</strong><br/>
+(G * M) / r = v²</p>
 <p>The orbital period <span class="arithmatex">\( T \)</span> is the time it takes to complete one full orbit:
 [
 T = \frac{2 \pi r}{v}
@@ -223,38 +215,30 @@ T^2 \propto r^3
 <li>Relativistic effects and perturbations from other bodies are neglected.</li>
 </ul>
 <h3 id="step-by-step-derivation">Step-by-step Derivation</h3>
-<p><strong>Gravitational force:</strong>
-[
-F_g = \frac{G M m}{r^2}
-]</p>
-<p><strong>Centripetal force required for circular motion:</strong>
-[
-F_c = \frac{m v^2}{r}
-]</p>
-<p>Equating gravitational force with the required centripetal force:
-[
-\frac{G M m}{r^2} = \frac{m v^2}{r}
-]</p>
-<p>Cancel <span class="arithmatex">\( m \)</span> from both sides (since <span class="arithmatex">\( m \neq 0 \)</span>) and multiply both sides by <span class="arithmatex">\( r \)</span>:
-[
-\frac{G M}{r} = v^2
-]</p>
-<p>The orbital period <span class="arithmatex">\( T \)</span> is the time it takes to complete one full revolution around the central body:
-[
-T = \frac{2 \pi r}{v} \Rightarrow v = \frac{2 \pi r}{T}
-]</p>
-<p>Substitute this expression for <span class="arithmatex">\( v \)</span> into the earlier equation:
-[
-\left( \frac{2 \pi r}{T} \right)^2 = \frac{G M}{r}
-]</p>
-<div class="arithmatex">\[
-\frac{4 \pi^2 r^2}{T^2} = \frac{G M}{r}
-\]</div>
-<p>Multiply both sides by <span class="arithmatex">\( r \)</span> to isolate <span class="arithmatex">\( T^2 \)</span>:
-[
-\frac{4 \pi^2 r^3}{T^2} = G M
-\Rightarrow T^2 = \frac{4 \pi^2 r^3}{G M}
-]</p>
+<p><strong>Gravitational force:</strong></p>
+<pre><code>F_g = (G * M * m) / r^2
+</code></pre>
+<p><strong>Centripetal force required for circular motion:</strong></p>
+<pre><code>F_c = (m * v^2) / r
+</code></pre>
+<p>Equating gravitational force with the required centripetal force:</p>
+<pre><code>(G * M * m) / r^2 = (m * v^2) / r
+</code></pre>
+<p>Cancel m from both sides (since m ≠ 0) and multiply both sides by r:</p>
+<pre><code>(G * M) / r = v^2
+</code></pre>
+<p>The orbital period T is the time it takes to complete one full revolution around the central body:</p>
+<pre><code>T = (2 * π * r) / v    ⇒    v = (2 * π * r) / T
+</code></pre>
+<p>Substitute this expression for v into the earlier equation:</p>
+<pre><code>((2 * π * r) / T)^2 = (G * M) / r
+
+(4 * π^2 * r^2) / T^2 = (G * M) / r
+</code></pre>
+<p>Multiply both sides by r to isolate T^2:</p>
+<pre><code>(4 * π^2 * r^3) / T^2 = G * M
+⇒ T^2 = (4 * π^2 * r^3) / (G * M)
+</code></pre>
 <hr/>
 <h3 id="interpretation">Interpretation</h3>
 <p>This final expression <span class="arithmatex">\( T^2 = \frac{4 \pi^2 r^3}{G M} \)</span> shows that the square of the orbital period is directly proportional to the cube of the orbital radius. The proportionality constant <span class="arithmatex">\( \frac{4 \pi^2}{G M} \)</span> depends solely on the gravitational constant and the mass of the central object, meaning that for all bodies orbiting the same central mass, the relationship between <span class="arithmatex">\( T^2 \)</span> and <span class="arithmatex">\( r^3 \)</span> is identical.</p>
@@ -270,12 +254,14 @@ M = \frac{4 \pi^2 r^3}{G T^2}
 <hr/>
 <h2 id="implications-for-astronomy">Implications for Astronomy</h2>
 <ul>
-<li>If the mass <span class="arithmatex">\( M \)</span> of the central object is known, one can predict orbital periods for satellites or planets.</li>
-<li>If the orbital period and radius are measured, one can estimate the mass of the central body:
-  [
-  M = \frac{4 \pi^2 r^3}{G T^2}
-  ]</li>
-<li>This relation holds remarkably well in planetary systems and is crucial in:</li>
+<li>If the mass M of the central object is known, one can predict orbital periods for satellites or planets.</li>
+<li>
+<p>If the orbital period and radius are measured, one can estimate the mass of the central body:</p>
+<p>M = (4 * π^2 * r^3) / (G * T^2)</p>
+</li>
+<li>
+<p>This relation holds remarkably well in planetary systems and is crucial in:</p>
+</li>
 <li>Determining stellar and planetary masses.</li>
 <li>Calculating distances in exoplanet studies.</li>
 <li>Planning space missions.</li>
@@ -324,10 +310,9 @@ plt.show()
 <p>Given:
 - <span class="arithmatex">\( r = 3.84 \times 10^8 \, \text{m} \)</span>
 - <span class="arithmatex">\( T = 27.3 \, \text{days} = 2.36 \times 10^6 \, \text{s} \)</span></p>
-<p>Estimate Earth's mass:
-[
-M = \frac{4 \pi^2 r^3}{G T^2} \approx 5.97 \times 10^{24} \, \text{kg}
-]</p>
+<p>Estimate Earth's mass:</p>
+<pre><code>M = (4 * π^2 * r^3) / (G * T^2) ≈ 5.97 × 10^24 kg
+</code></pre>
 <h3 id="2-planets-in-the-solar-system">2. <strong>Planets in the Solar System</strong></h3>
 <table>
 <thead>
@@ -434,17 +419,23 @@ plt.show()
 <p><img alt="alt text" src="../image-2.png"/></p>
 <hr/>
 <h2 id="extension-to-elliptical-orbits">Extension to Elliptical Orbits</h2>
-<p>Kepler's Third Law also holds for elliptical orbits, where the semi-major axis 'a' replaces the circular radius 'r':</p>
-<p>T² = (4π² · a³) / (G · M)</p>
+<p>Kepler's Third Law also holds for elliptical orbits, where the semi-major axis <em>a</em> replaces the circular radius <em>r</em>:</p>
+<div class="arithmatex">\[
+T^2 = \frac{4 \pi^2 a^3}{G M}
+\]</div>
 <p>This is especially useful for calculating the dynamics of:</p>
 <ul>
-<li>Comets (e.g., Halley's Comet)</li>
-<li>Binary star systems</li>
-<li>Exoplanets orbiting other stars</li>
+<li>Comets (e.g., Halley's Comet)  </li>
+<li>Binary star systems  </li>
+<li>Exoplanets orbiting other stars  </li>
 </ul>
+<p>In elliptical orbits, even though the distance between the orbiting object and the central body changes over time, the average distance represented by the semi-major axis still governs the orbital period. This generalization makes Kepler’s Law applicable to a wide range of celestial phenomena beyond nearly circular planetary orbits.</p>
+<p>It also provides the foundation for analyzing long-period comets and predicting their return, as well as calculating orbital characteristics of distant exoplanets detected via transit or radial velocity methods.</p>
 <hr/>
 <h2 id="conclusion">Conclusion</h2>
 <p>Kepler's Third Law elegantly links orbital period to orbital size, revealing the gravitational harmony of planetary systems. Whether calculating the mass of Earth from the Moon’s motion or simulating artificial satellite paths, this relationship remains central in both theoretical and applied astronomy.</p>
+<p>Beyond our Solar System, Kepler’s Law plays a crucial role in characterizing exoplanets and their host stars, contributing to our understanding of planetary system formation and evolution. Its simplicity allows scientists to extract complex gravitational behavior from limited observational data.</p>
+<p>As our ability to observe distant systems improves with modern telescopes and space missions, Kepler’s insights continue to serve as a foundational tool in unlocking the dynamics of the universe.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
