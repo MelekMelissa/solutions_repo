@@ -18,25 +18,18 @@ Kepler's Third Law establishes a relationship between the **orbital period** \( 
 
 We begin with Newton's Law of Universal Gravitation and the requirement for centripetal force to sustain circular motion:
 
-**Gravitational force:**
-\[
-F_g = \frac{G M m}{r^2}
-\]
+**Gravitational force:**  
+Fg = (G * M * m) / r²
 
-**Centripetal force required for circular motion:**
-\[
-F_c = \frac{m v^2}{r}
-\]
+**Centripetal force required for circular motion:**  
+Fc = (m * v²) / r
 
-Equating the two forces:
-\[
-\frac{G M m}{r^2} = \frac{m v^2}{r}
-\]
+**Equating the two forces:**  
+(G * M * m) / r² = (m * v²) / r
 
-Cancel \( m \) and multiply both sides by \( r \):
-\[
-\frac{G M}{r} = v^2
-\]
+**Cancel m and multiply both sides by r:**  
+(G * M) / r = v²
+
 
 The orbital period \( T \) is the time it takes to complete one full orbit:
 \[
@@ -67,44 +60,35 @@ To derive Kepler’s Third Law from first principles, we start with Newton’s L
 ### Step-by-step Derivation
 
 **Gravitational force:**
-\[
-F_g = \frac{G M m}{r^2}
-\]
+
+    F_g = (G * M * m) / r^2
 
 **Centripetal force required for circular motion:**
-\[
-F_c = \frac{m v^2}{r}
-\]
+
+    F_c = (m * v^2) / r
 
 Equating gravitational force with the required centripetal force:
-\[
-\frac{G M m}{r^2} = \frac{m v^2}{r}
-\]
 
-Cancel \( m \) from both sides (since \( m \neq 0 \)) and multiply both sides by \( r \):
-\[
-\frac{G M}{r} = v^2
-\]
+    (G * M * m) / r^2 = (m * v^2) / r
 
-The orbital period \( T \) is the time it takes to complete one full revolution around the central body:
-\[
-T = \frac{2 \pi r}{v} \Rightarrow v = \frac{2 \pi r}{T}
-\]
+Cancel m from both sides (since m ≠ 0) and multiply both sides by r:
 
-Substitute this expression for \( v \) into the earlier equation:
-\[
-\left( \frac{2 \pi r}{T} \right)^2 = \frac{G M}{r}
-\]
+    (G * M) / r = v^2
 
-\[
-\frac{4 \pi^2 r^2}{T^2} = \frac{G M}{r}
-\]
+The orbital period T is the time it takes to complete one full revolution around the central body:
 
-Multiply both sides by \( r \) to isolate \( T^2 \):
-\[
-\frac{4 \pi^2 r^3}{T^2} = G M
-\Rightarrow T^2 = \frac{4 \pi^2 r^3}{G M}
-\]
+    T = (2 * π * r) / v    ⇒    v = (2 * π * r) / T
+
+Substitute this expression for v into the earlier equation:
+
+    ((2 * π * r) / T)^2 = (G * M) / r
+
+    (4 * π^2 * r^2) / T^2 = (G * M) / r
+
+Multiply both sides by r to isolate T^2:
+
+    (4 * π^2 * r^3) / T^2 = G * M
+    ⇒ T^2 = (4 * π^2 * r^3) / (G * M)
 
 ---
 
@@ -128,16 +112,15 @@ Although this derivation treats force magnitudes as scalar quantities, a full ve
 
 In the following sections, we will explore real-world examples such as planetary orbits and the Moon’s motion, and implement a computational simulation to verify Kepler’s Third Law numerically. Additionally, we will extend this relationship to elliptical orbits using the semi-major axis in place of the orbital radius.
 
-
 ---
 
 ## Implications for Astronomy
 
-- If the mass \( M \) of the central object is known, one can predict orbital periods for satellites or planets.
+- If the mass M of the central object is known, one can predict orbital periods for satellites or planets.
 - If the orbital period and radius are measured, one can estimate the mass of the central body:
-  \[
-  M = \frac{4 \pi^2 r^3}{G T^2}
-  \]
+
+    M = (4 * π^2 * r^3) / (G * T^2)
+
 - This relation holds remarkably well in planetary systems and is crucial in:
   - Determining stellar and planetary masses.
   - Calculating distances in exoplanet studies.
@@ -201,9 +184,9 @@ Given:
 - \( T = 27.3 \, \text{days} = 2.36 \times 10^6 \, \text{s} \)
 
 Estimate Earth's mass:
-\[
-M = \frac{4 \pi^2 r^3}{G T^2} \approx 5.97 \times 10^{24} \, \text{kg}
-\]
+
+    M = (4 * π^2 * r^3) / (G * T^2) ≈ 5.97 × 10^24 kg
+
 
 ### 2. **Planets in the Solar System**
 
@@ -297,24 +280,35 @@ plt.show()
 </details>
 
 ![alt text](image-2.png)
+ 
+ ---
 
-
----
 ## Extension to Elliptical Orbits
 
-Kepler's Third Law also holds for elliptical orbits, where the semi-major axis 'a' replaces the circular radius 'r':
+Kepler's Third Law also holds for elliptical orbits, where the semi-major axis *a* replaces the circular radius *r*:
 
-T² = (4π² · a³) / (G · M)
+\[
+T^2 = \frac{4 \pi^2 a^3}{G M}
+\]
 
 This is especially useful for calculating the dynamics of:
 
-- Comets (e.g., Halley's Comet)
-- Binary star systems
-- Exoplanets orbiting other stars
+- Comets (e.g., Halley's Comet)  
+- Binary star systems  
+- Exoplanets orbiting other stars  
+
+In elliptical orbits, even though the distance between the orbiting object and the central body changes over time, the average distance represented by the semi-major axis still governs the orbital period. This generalization makes Kepler’s Law applicable to a wide range of celestial phenomena beyond nearly circular planetary orbits.
+
+It also provides the foundation for analyzing long-period comets and predicting their return, as well as calculating orbital characteristics of distant exoplanets detected via transit or radial velocity methods.
 
 ---
 
 ## Conclusion
 
 Kepler's Third Law elegantly links orbital period to orbital size, revealing the gravitational harmony of planetary systems. Whether calculating the mass of Earth from the Moon’s motion or simulating artificial satellite paths, this relationship remains central in both theoretical and applied astronomy.
+
+Beyond our Solar System, Kepler’s Law plays a crucial role in characterizing exoplanets and their host stars, contributing to our understanding of planetary system formation and evolution. Its simplicity allows scientists to extract complex gravitational behavior from limited observational data.
+
+As our ability to observe distant systems improves with modern telescopes and space missions, Kepler’s insights continue to serve as a foundational tool in unlocking the dynamics of the universe.
+
 
