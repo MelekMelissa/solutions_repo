@@ -18,22 +18,23 @@ In addition, this problem serves as an entry point to explore more complex syste
 ### 1. Governing Equations of Motion
 
 The motion of a projectile in the absence of air resistance is governed by Newton's laws of motion. To simplify the analysis, we divide the motion into horizontal and vertical components.
+ 
+- **Horizontal Motion**:
+  \[
+  x(t) = v_0 \cdot \cos(\theta) \cdot t
+  \]
+  Where:
+  - \(x(t)\) is the horizontal position at time \(t\),
+  - \(v_0\) is the initial velocity,
+  - \(\theta\) is the launch angle,
+  - \(t\) is the time elapsed.
 
-- **Horizontal Motion**: 
-    \[
-    x(t) = v_0 \cdot \cos(\theta) \cdot t
-    \]
-    Where:
-    - \( x(t) \) is the horizontal position at time \( t \),
-    - \( v_0 \) is the initial velocity,
-    - \( \theta \) is the launch angle,
-    - \( t \) is the time elapsed.
+  Since there is no acceleration in the horizontal direction (assuming no air resistance), the horizontal velocity remains constant.
 
-    Since there is no acceleration in the horizontal direction (assuming no air resistance), the horizontal velocity remains constant.
-    <details>
+ <details>
   <summary>Show Python Code</summary>
-  
-  ```python
+
+  <pre><code>
   import numpy as np
   import matplotlib.pyplot as plt
 
@@ -67,20 +68,26 @@ The motion of a projectile in the absence of air resistance is governed by Newto
   # Show the plot
   plt.tight_layout()
   plt.show()
+  </code></pre>
+
+</details>
+
 ![alt text](image-1.png)
+
 This graph shows how horizontal motion changes over time. The **horizontal motion equation** \( x(t) = v_0 \cdot \cos(\theta) \cdot t \) is used to describe it. Here, horizontal distance increases linearly with time \( t \). The graph illustrates how the horizontal distances of projectiles with different initial velocities (10 m/s, 20 m/s, 30 m/s) change over time.
 
 
- - **Vertical Motion**: 
-\[
-y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
-\]
+- **Vertical Motion**:  
+  \[
+  y(t) = v_0 \cdot \sin(\theta) \cdot t - \frac{1}{2} g t^2
+  \]
 
-Where:
- - \( y(t) \): The vertical position at time \( t \),
- - \( v_0 \cdot \sin(\theta) \): The vertical component of the initial velocity,
- - \( g \): Gravitational acceleration (\( \approx 9.81 \, \text{m/s}^2 \) on Earth),
-- \( t \): The time elapsed.
+  Where:
+  - \( y(t) \) is the **vertical position** at time \( t \),
+  - \( v_0 \cdot \sin(\theta) \) is the **vertical component** of the initial velocity,
+  - \( g \) is the **gravitational acceleration** (\( \approx 9.81 \, \text{m/s}^2 \) on Earth),
+  - \( t \) is the **time elapsed**.
+ 
 
 The projectile reaches the maximum height when the vertical velocity component becomes zero. From this point, it starts descending until it reaches the ground. The total time of flight can be found by solving the vertical motion equation for when \( y(t) = 0 \).
 <details>
@@ -177,7 +184,7 @@ Assume there is no air resistance and take the acceleration due to gravity as **
 
 ---
 
-###  Solution:
+### Solution:
 
 Given:
 - \( v_0 = 20 \, \text{m/s} \)
@@ -186,20 +193,30 @@ Given:
 
 We use the following formulas:
 
-1. **Time of Flight:**
+1. **Time of Flight**:
 \[
-t_{\text{total}} = \frac{2 v_0 \cdot \sin(\theta)}{g} = \frac{2 \cdot 20 \cdot \sin(30^\circ)}{9.81} = \frac{20}{9.81} \approx \boxed{2.04 \, \text{seconds}}
+t_{\text{total}} = \frac{2 v_0 \cdot \sin(\theta)}{g} 
+\]
+\[
+t_{\text{total}} = \frac{2 \cdot 20 \cdot \sin(30^\circ)}{9.81} = \frac{20}{9.81} \approx \boxed{2.04 \, \text{seconds}}
 \]
 
-2. **Range (Horizontal Distance):**
+2. **Range (Horizontal Distance)**:
 \[
-R = \frac{v_0^2 \cdot \sin(2\theta)}{g} = \frac{400 \cdot \sin(60^\circ)}{9.81} = \frac{400 \cdot 0.866}{9.81} \approx \frac{346.4}{9.81} \approx \boxed{35.3 \, \text{meters}}
+R = \frac{v_0^2 \cdot \sin(2\theta)}{g}
+\]
+\[
+R = \frac{400 \cdot \sin(60^\circ)}{9.81} = \frac{400 \cdot 0.866}{9.81} \approx \frac{346.4}{9.81} \approx \boxed{35.3 \, \text{meters}}
 \]
 
-3. **Maximum Height:**
+3. **Maximum Height**:
 \[
-H_{\text{max}} = \frac{v_0^2 \cdot \sin^2(\theta)}{2g} = \frac{400 \cdot \sin^2(30^\circ)}{2 \cdot 9.81} = \frac{400 \cdot 0.25}{19.62} = \frac{100}{19.62} \approx \boxed{5.1 \, \text{meters}}
+H_{\text{max}} = \frac{v_0^2 \cdot \sin^2(\theta)}{2g}
 \]
+\[
+H_{\text{max}} = \frac{400 \cdot \sin^2(30^\circ)}{2 \cdot 9.81} = \frac{400 \cdot 0.25}{19.62} = \frac{100}{19.62} \approx \boxed{5.1 \, \text{meters}}
+\]
+
 
 ###  Final Answers:
 - **Time of Flight:** 2.04 s  
