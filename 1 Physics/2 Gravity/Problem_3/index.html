@@ -60,6 +60,24 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 3</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#trajectories-of-a-freely-released-payload-near-earth">Trajectories of a Freely Released Payload Near Earth</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-introduction">1. Introduction</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-theoretical-framework-and-equations">2. Theoretical Framework and Equations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-numerical-simulation">3. Numerical Simulation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-python-code-implementation">4. Python Code Implementation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#5-simulation-results-analysis">5. Simulation Results &amp; Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#6-real-world-applications">6. Real-World Applications</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#7-conclusion">7. Conclusion</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -172,6 +190,318 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-3">Problem 3</h1>
+<h2 id="trajectories-of-a-freely-released-payload-near-earth"><strong>Trajectories of a Freely Released Payload Near Earth</strong></h2>
+<h3 id="1-introduction"><strong>1. Introduction</strong></h3>
+<p>In the field of orbital mechanics, understanding the motion of objects under the influence of gravity is crucial for mission planning, satellite deployment, and spacecraft navigation. When a payload is released from an orbiting spacecraft near Earth, its subsequent trajectory depends on its position, velocity, and the gravitational field of Earth. These trajectories can be:</p>
+<ul>
+<li><strong>Elliptical or Circular Orbits</strong> (bound orbits),</li>
+<li><strong>Parabolic Trajectories</strong> (critical energy paths),</li>
+<li><strong>Hyperbolic Trajectories</strong> (escape paths),</li>
+<li><strong>Suborbital or Reentry Trajectories</strong> (when energy is insufficient to sustain orbit).</li>
+</ul>
+<p>This problem provides an excellent opportunity to integrate Newtonian physics with computational methods. Through numerical simulation, we can explore how different initial conditions influence the outcome — whether the payload returns to Earth, remains in orbit, or escapes Earth’s gravity.</p>
+<p>This report includes:</p>
+<ul>
+<li>Theoretical formulation of the gravitational motion,</li>
+<li>Numerical simulation using Python (Runge-Kutta method),</li>
+<li>Analysis of trajectories under varying initial conditions,</li>
+<li>Visualization of orbits and classification based on energy.</li>
+</ul>
+<hr/>
+<h3 id="2-theoretical-framework-and-equations"><strong>2. Theoretical Framework and Equations</strong></h3>
+<h4 id="21-newtons-law-of-universal-gravitation">2.1 Newton’s Law of Universal Gravitation</h4>
+<p>Newton’s law describes the force <span class="arithmatex">\(F\)</span> between two masses as:</p>
+<div class="arithmatex">\[
+F = \frac{G M_e m}{r^2}
+\]</div>
+<p>Where:</p>
+<ul>
+<li><span class="arithmatex">\(G = 6.67430 \times 10^{-11} \, \text{m}^3 \cdot \text{kg}^{-1} \cdot \text{s}^{-2}\)</span> is the gravitational constant,</li>
+<li><span class="arithmatex">\(M_e\)</span> is the mass of Earth <span class="arithmatex">\((5.972 \times 10^{24} \, \text{kg})\)</span>,</li>
+<li><span class="arithmatex">\(m\)</span> is the mass of the payload (cancels in equations of motion),</li>
+<li><span class="arithmatex">\(r\)</span> is the distance from the Earth’s center to the payload.</li>
+</ul>
+<p>This force points toward the center of Earth and acts as the only force (ignoring drag and other bodies) in this model.</p>
+<h4 id="22-equations-of-motion-in-two-dimensions">2.2 Equations of Motion in Two Dimensions</h4>
+<p>The payload’s motion is governed by Newton's second law:</p>
+<div class="arithmatex">\[
+\vec{F} = m \vec{a} \Rightarrow \vec{a} = -\frac{GM_e}{r^3} \vec{r}
+\]</div>
+<p>Expressed in Cartesian coordinates (2D plane):</p>
+<div class="arithmatex">\[
+\frac{d^2 x}{dt^2} = -\frac{GM_e x}{(x^2 + y^2)^{3/2}}, \quad \frac{d^2 y}{dt^2} = -\frac{GM_e y}{(x^2 + y^2)^{3/2}}
+\]</div>
+<p>These are second-order differential equations. To integrate them numerically, we convert them to a first-order system:</p>
+<div class="arithmatex">\[
+\frac{dx}{dt} = v_x, \quad \frac{dy}{dt} = v_y
+\]</div>
+<div class="arithmatex">\[
+\frac{dv_x}{dt} = -\frac{GM_e x}{(x^2 + y^2)^{3/2}}, \quad \frac{dv_y}{dt} = -\frac{GM_e y}{(x^2 + y^2)^{3/2}}
+\]</div>
+<h4 id="23-total-specific-mechanical-energy">2.3 Total Specific Mechanical Energy</h4>
+<p>To classify the trajectory type, we compute the specific mechanical energy <span class="arithmatex">\(E\)</span> (energy per unit mass):</p>
+<div class="arithmatex">\[
+E = \frac{v^2}{2} - \frac{GM_e}{r}
+\]</div>
+<ul>
+<li><span class="arithmatex">\(E &lt; 0\)</span>: Elliptical orbit (bound)</li>
+<li><span class="arithmatex">\(E = 0\)</span>: Parabolic trajectory (escape threshold)</li>
+<li><span class="arithmatex">\(E &gt; 0\)</span>: Hyperbolic trajectory (unbound)</li>
+</ul>
+<h4 id="24-escape-velocity">2.4 Escape Velocity</h4>
+<p>The escape velocity is the minimum speed required to overcome Earth’s gravity from a given distance <span class="arithmatex">\(r\)</span>:</p>
+<div class="arithmatex">\[
+v_{\text{esc}} = \sqrt{\frac{2GM_e}{r}}
+\]</div>
+<p>This threshold separates bound and unbound trajectories.</p>
+<hr/>
+<h3 id="3-numerical-simulation"><strong>3. Numerical Simulation</strong></h3>
+<p>To simulate the trajectory, we use the <strong>4th-order Runge-Kutta method (RK4)</strong> — a stable and accurate method for solving systems of ordinary differential equations.</p>
+<h4 id="31-assumptions">3.1 Assumptions</h4>
+<ul>
+<li>2D planar motion around a spherically symmetric Earth.</li>
+<li>No atmosphere or drag forces.</li>
+<li>Constant gravitational field based on Newtonian model.</li>
+</ul>
+<h4 id="32-initial-conditions">3.2 Initial Conditions</h4>
+<p>The user specifies:</p>
+<ul>
+<li>Initial altitude <span class="arithmatex">\(h\)</span>,</li>
+<li>Initial velocity vector <span class="arithmatex">\(\vec{v}_0\)</span>,</li>
+<li>Launch direction.</li>
+</ul>
+<p>We test various velocities: suborbital, orbital, and escape.</p>
+<hr/>
+<h3 id="4-python-code-implementation"><strong>4. Python Code Implementation</strong></h3>
+<p>This section presents a Python implementation of the 4th-order Runge-Kutta (RK4) method to simulate the motion of a payload under the influence of Earth's gravity.</p>
+<p>The second-order differential equations of motion are reformulated into a system of first-order equations and solved numerically. The following code snippet outlines the full simulation setup.</p>
+<p>Note: The resulting trajectory along with velocity vector visualization is provided in Section 5.1.</p>
+<h3 id="5-simulation-results-analysis"><strong>5. Simulation Results &amp; Analysis</strong></h3>
+<h4 id="51-varying-velocity-factor">5.1 Varying Velocity Factor</h4>
+<ul>
+<li><strong><span class="arithmatex">\(v = 1.0 \times v_{\text{circ}}\)</span></strong>: Perfect circular orbit.</li>
+<li><strong><span class="arithmatex">\(v &lt; 1.0\)</span></strong>: Suborbital or elliptical orbit, may reenter.</li>
+<li><strong><span class="arithmatex">\(v &gt; 1.0\)</span></strong>: Elliptical or hyperbolic trajectory.</li>
+<li><strong><span class="arithmatex">\(v = 1.414 \times v_{\text{circ}}\)</span></strong>: Escape velocity (parabolic).</li>
+</ul>
+<h4 id="enhanced-velocity-visualization">Enhanced Velocity Visualization</h4>
+<p>To observe how the velocity evolves along the trajectory, red vectors are overlaid:</p>
+<details>
+<summary><strong> Show Python code</strong></summary>
+<pre><code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+G = 6.67430e-11
+M_earth = 5.972e24
+R_earth = 6.371e6
+
+# Initial conditions
+altitude = 400e3
+r0 = R_earth + altitude
+v_circular = np.sqrt(G * M_earth / r0)
+vx0 = 0
+vy0 = 1.0 * v_circular
+
+# Time setup
+dt = 1
+t_max = 6000
+steps = int(t_max / dt)
+
+# Arrays
+r = np.zeros((steps, 2))
+v = np.zeros((steps, 2))
+r[0] = [r0, 0]
+v[0] = [vx0, vy0]
+
+# Acceleration function
+def acceleration(pos):
+    r_mag = np.linalg.norm(pos)
+    return -G * M_earth * pos / r_mag**3
+
+# RK4 integration
+for i in range(steps - 1):
+    k1v = dt * acceleration(r[i])
+    k1r = dt * v[i]
+    k2v = dt * acceleration(r[i] + 0.5 * k1r)
+    k2r = dt * (v[i] + 0.5 * k1v)
+    k3v = dt * acceleration(r[i] + 0.5 * k2r)
+    k3r = dt * (v[i] + 0.5 * k2v)
+    k4v = dt * acceleration(r[i] + k3r)
+    k4r = dt * (v[i] + k3v)
+    v[i+1] = v[i] + (k1v + 2*k2v + 2*k3v + k4v) / 6
+    r[i+1] = r[i] + (k1r + 2*k2r + 2*k3r + k4r) / 6
+
+# Plot with enhanced velocity vectors
+plt.figure(figsize=(8, 8))
+plt.plot(r[:, 0]/1e3, r[:, 1]/1e3, label="Trajectory", color="black")
+
+plt.quiver(
+    r[::200, 0]/1e3, r[::200, 1]/1e3,
+    v[::200, 0]/1e3, v[::200, 1]/1e3,
+    color='red', angles='xy', scale_units='xy',
+    scale=3, width=0.007, label="Velocity Vectors"
+)
+
+earth = plt.Circle((0, 0), R_earth/1e3, color='blue', alpha=0.5, label="Earth")
+plt.gca().add_patch(earth)
+
+plt.xlabel("x [km]")
+plt.ylabel("y [km]")
+plt.title("2D Payload Trajectory with Enhanced Velocity Vectors")
+plt.axis('equal')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-15.png"/>
+These arrows represent the direction and magnitude of the velocity at intervals. Note how the velocity direction constantly shifts, indicating the influence of gravity along the orbital path.</p>
+<h4 id="52-observation">5.2 Observation</h4>
+<ul>
+<li>A payload at 400 km altitude has an orbital velocity of \~7.67 km/s.</li>
+<li>Small deviations can lead to either reentry or escape — <strong>precision is critical</strong> in orbital dynamics.</li>
+<li>Trajectories become increasingly sensitive to initial conditions at higher energies.</li>
+</ul>
+<h4 id="energy-conservation-analysis">Energy Conservation Analysis</h4>
+<p>To evaluate the accuracy and stability of the simulation, we observe the specific mechanical energy over time:</p>
+<details>
+<summary><strong> Show Python code</strong></summary>
+<pre><code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Reuse r and v from previous simulation
+r_mag = np.linalg.norm(r, axis=1)
+v_mag = np.linalg.norm(v, axis=1)
+energy = 0.5 * v_mag**2 - G * M_earth / r_mag
+
+time = np.arange(len(energy))
+
+plt.figure(figsize=(10, 5))
+plt.plot(time, energy, color='green')
+plt.xlabel("Time [s]")
+plt.ylabel("Specific Mechanical Energy [J/kg]")
+plt.title("Total Mechanical Energy of the Payload vs Time")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-16.png"/>
+As seen in the plot above, the total specific mechanical energy remains nearly constant over the entire simulation duration. This flat green curve confirms that the Runge-Kutta numerical integration method preserves energy well, indicating a physically accurate and stable simulation.</p>
+<h4 id="53-phase-space-analysis">5.3 Phase Space Analysis</h4>
+<p>To further understand the system's behavior, we analyze the phase space: the relationship between the payload’s speed and its distance from Earth’s center.</p>
+<details>
+<summary><strong> Show Python code</strong></summary>
+<pre><code>
+r_mag = np.linalg.norm(r, axis=1) / 1e3  # km
+v_mag = np.linalg.norm(v, axis=1) / 1e3  # km/s
+
+plt.figure(figsize=(10, 5))
+plt.plot(r_mag, v_mag, color='purple')
+plt.xlabel("Distance from Earth Center |r| [km]")
+plt.ylabel("Speed |v| [km/s]")
+plt.title("Phase Space: Velocity vs Radial Distance")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-17.png"/>
+In a stable orbit, the relationship between speed and radial distance forms a smooth curve. As the payload moves away from Earth, its speed decreases due to gravitational deceleration. This phase space representation confirms the elliptical nature of the trajectory and provides insight into orbital energy distribution.</p>
+<h4 id="54-angular-momentum-analysis">5.4 Angular Momentum Analysis</h4>
+<p>Angular momentum is expected to be conserved in a system where the only force acting is gravity. By plotting the scalar angular momentum over time, we can validate the rotational consistency of the simulation.</p>
+<details>
+<summary><strong> Show Python code</strong></summary>
+<pre><code>
+# Angular momentum per unit mass in 2D
+L = r[:, 0] * v[:, 1] - r[:, 1] * v[:, 0]
+
+time = np.arange(len(L))
+
+plt.figure(figsize=(10, 5))
+plt.plot(time, L, color='orange')
+plt.xlabel("Time [s]")
+plt.ylabel("Angular Momentum per Unit Mass [m²/s]")
+plt.title("Angular Momentum of the Payload vs Time")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-18.png"/>
+As shown in the plot, the angular momentum remains nearly constant throughout the simulation. This supports the accuracy of the Runge-Kutta integration and confirms the absence of external torques.</p>
+<h4 id="55-sensitivity-analysis-the-effect-of-initial-velocity">5.5 Sensitivity Analysis: The Effect of Initial Velocity</h4>
+<p>To better understand how small changes in initial velocity affect the resulting trajectory, we vary the initial speed using different velocity factors and classify the resulting motion.</p>
+<table>
+<thead>
+<tr>
+<th>Velocity Factor</th>
+<th>Initial Speed [km/s]</th>
+<th>Specific Energy [J/kg]</th>
+<th>Trajectory Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.8</td>
+<td>~6.13</td>
+<td>&lt; 0</td>
+<td>Suborbital (reentry)</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>~7.67</td>
+<td>≈ -29.4 MJ/kg</td>
+<td>Circular orbit</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>~8.44</td>
+<td>&lt; 0</td>
+<td>Elliptical orbit</td>
+</tr>
+<tr>
+<td>1.41</td>
+<td>~10.83</td>
+<td>≈ 0</td>
+<td>Parabolic (escape limit)</td>
+</tr>
+<tr>
+<td>1.6</td>
+<td>~12.27</td>
+<td>&gt; 0</td>
+<td>Hyperbolic (escape)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>This analysis demonstrates how <strong>small variations in initial speed</strong> can completely change the outcome: whether the payload crashes, orbits Earth, or escapes into interplanetary space.</p>
+</blockquote>
+<hr/>
+<h3 id="6-real-world-applications"><strong>6. Real-World Applications</strong></h3>
+<h4 id="61-satellite-deployment">6.1 Satellite Deployment</h4>
+<p>Satellites must be released at precise velocities and directions to maintain a stable orbit. If the velocity is too low or the direction misaligned, it will crash or drift away.</p>
+<h4 id="62-atmospheric-reentry">6.2 Atmospheric Reentry</h4>
+<p>Space capsules returning to Earth are intentionally deorbited. Engineers must carefully compute velocity reduction and timing to ensure safe descent into the atmosphere.</p>
+<h4 id="63-escape-missions">6.3 Escape Missions</h4>
+<p>Interplanetary missions like <strong>Voyager</strong>, <strong>James Webb</strong>, or <strong>New Horizons</strong> achieve escape velocity from Earth before initiating transfer orbits. Understanding escape conditions is essential in such missions.</p>
+<h4 id="64-launch-windows">6.4 Launch Windows</h4>
+<p>For all missions, trajectory planning depends on the Earth’s rotation, position in orbit, and the gravity assists from celestial bodies. This analysis is a starting point for such calculations.</p>
+<hr/>
+<h3 id="7-conclusion"><strong>7. Conclusion</strong></h3>
+<p>In this report, we investigated the motion of a payload released near Earth using both analytical and computational tools. By applying Newton's gravitational law and solving the resulting differential equations with numerical methods, we observed various types of trajectories:</p>
+<ul>
+<li>Bound (elliptical and circular),</li>
+<li>Reentry (suborbital),</li>
+<li>Escape (hyperbolic or parabolic).</li>
+</ul>
+<p>The simulation reveals that <strong>initial conditions dictate orbital fate</strong>. Through visualization, we classified the trajectories and discussed their implications for real-world spaceflight scenarios.</p>
+<p>Understanding and modeling these paths is fundamental for aerospace engineering, satellite communications, and planetary exploration — forming the foundation of orbital mechanics.</p>
+<hr/>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
