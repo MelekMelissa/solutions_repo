@@ -78,6 +78,54 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#challenges-in-manual-resistance-computation">Challenges in Manual Resistance Computation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#why-graph-theory">Why Graph Theory?</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#methodology">Methodology</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#modeling-the-circuit-as-a-graph">Modeling the Circuit as a Graph</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#reduction-rules">Reduction Rules</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-analyses">Example Analyses</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-1-simple-series-circuit">Example 1: Simple Series Circuit</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-2-parallel-configuration">Example 2: Parallel Configuration</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-3-nested-combination">Example 3: Nested Combination</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-4-triangle-loop">Example 4: Triangle Loop</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-5-wheatstone-bridge-non-reducible-network">Example 5: Wheatstone Bridge (Non-Reducible Network)</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#efficiency-and-performance">Efficiency and Performance</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#time-complexity">Time Complexity</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#space-complexity">Space Complexity</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#scalability">Scalability</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-6-scalable-grid-network">Example 6: Scalable Grid Network</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#future-improvements-and-applications">Future Improvements and Applications</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -172,6 +220,456 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<p># Equivalent Resistance Calculation Using Graph Theory</p>
+<h2 id="introduction">Introduction</h2>
+<p>In the domain of electrical and electronic engineering, one of the most fundamental analysis tasks is the computation of <strong>equivalent resistance</strong> between two points in a circuit. This metric not only determines the total current drawn from a source but also influences signal propagation, power dissipation, and the behavior of active components. As such, understanding how resistance combines across a network of resistors is essential for circuit designers, researchers, and students alike.</p>
+<p>In academic settings, we are introduced to simple configurations of resistors: <strong>series</strong> (where resistances add) and <strong>parallel</strong> (where conductances add). However, real-world circuits—ranging from microprocessor PCBs to power distribution networks—seldom adhere to these basic patterns. Instead, they contain <strong>nested series-parallel combinations</strong>, <strong>feedback loops</strong>, <strong>bridges</strong>, and <strong>mesh topologies</strong>, which render manual computation inefficient and error-prone.</p>
+<p>To solve this, we turn to <strong>graph theory</strong>, a powerful mathematical discipline that provides the tools to represent complex structures in a clear, formal, and computable way. In this report, we model resistor networks as <strong>weighted graphs</strong> and use algorithmic simplification to compute their equivalent resistance. This method supports automation, scalability, and mathematical rigor.</p>
+<p>The objective of this report is to:
+- Explain the motivation behind adopting graph-theoretic techniques.
+- Describe in detail the methodology for modeling and reducing circuits.
+- Demonstrate the approach using progressively complex examples.
+- Analyze the efficiency and scalability of the algorithm.
+- Discuss future improvements and applications.</p>
+<hr/>
+<h2 id="motivation">Motivation</h2>
+<p>As electronic systems grow in complexity, traditional resistor reduction methods fail to keep up with the demands of:
+- <strong>Scalability</strong>: Circuits can contain thousands of components.
+- <strong>Automation</strong>: Modern CAD tools require real-time analysis.
+- <strong>Robustness</strong>: Nested, irregular, and non-planar networks are difficult to simplify manually.</p>
+<h3 id="challenges-in-manual-resistance-computation">Challenges in Manual Resistance Computation</h3>
+<ol>
+<li><strong>Nested Combinations</strong><br/>
+   For instance, consider three resistors: two in series (2Ω and 3Ω), and that series path in parallel with another 6Ω resistor.</li>
+</ol>
+<p>Manual steps are prone to errors:</p>
+<ul>
+<li>
+<p>First, compute the series:<br/>
+  R_series = 2 + 3 = 5Ω</p>
+</li>
+<li>
+<p>Then apply the parallel rule:<br/>
+  1 / R_eq = 1 / 5 + 1 / 6 = 11 / 30<br/>
+  ⇒ R_eq ≈ 2.73Ω</p>
+</li>
+</ul>
+<p>Even this simple setup already requires intermediate steps and careful attention.</p>
+<ol>
+<li>
+<p><strong>Bridged and Looped Circuits</strong><br/>
+   A Wheatstone bridge or mesh circuit cannot be simplified by series-parallel reductions without deeper techniques (e.g., delta-wye transformations or Kirchhoff analysis). These techniques are time-consuming and require domain expertise.</p>
+</li>
+<li>
+<p><strong>Circuit Simulation Software</strong><br/>
+   Modern design tools (e.g., LTspice, Altium, Cadence) must rapidly compute equivalent resistances during:</p>
+</li>
+<li>Layout validation</li>
+<li>Signal integrity checks</li>
+<li>Power budgeting
+   Graph-theory-based algorithms can provide these evaluations automatically.</li>
+</ol>
+<h3 id="why-graph-theory">Why Graph Theory?</h3>
+<p>Graph theory enables:
+- <strong>Modeling</strong> circuits as mathematical objects.
+- <strong>Automated reduction</strong> using deterministic rules.
+- <strong>Handling arbitrary configurations</strong>—including cycles and nested structures.
+- <strong>Foundation for symbolic, probabilistic, and machine learning extensions</strong>.</p>
+<p>This makes it an ideal foundation for scalable, intelligent, and programmable circuit analysis tools.</p>
+<hr/>
+<h2 id="methodology">Methodology</h2>
+<h3 id="modeling-the-circuit-as-a-graph">Modeling the Circuit as a Graph</h3>
+<p>A resistor network can be transformed into a <strong>graph</strong> where:
+- Each <strong>node (vertex)</strong> represents a junction.
+- Each <strong>edge</strong> represents a resistor.
+- The <strong>weight</strong> on each edge is the resistance value in ohms.</p>
+<p>The graph is typically:
+- <strong>Undirected</strong>, as current can flow in both directions through resistors.
+- A <strong>multigraph</strong>, allowing multiple resistors (edges) between the same two nodes.</p>
+<p>Example:
+If a 2Ω and a 5Ω resistor connect node A to node B:
+- The graph has nodes A and B.
+- Two edges between A and B with weights: 2 and 5.</p>
+<hr/>
+<h3 id="reduction-rules">Reduction Rules</h3>
+<p>To simplify the graph, two core rules are applied iteratively:</p>
+<h4 id="1-series-reduction">1. <strong>Series Reduction</strong></h4>
+<p>Occurs when a node:
+- Has a degree of 2 (only two connections)
+- Is not one of the terminal nodes (e.g., source or destination)
+- Is connected to two resistors, say R₁ and R₂</p>
+<p>We can collapse it into a single edge between its two neighbors:</p>
+<p>R_eq = R₁ + R₂</p>
+<h4 id="2-parallel-reduction">2. <strong>Parallel Reduction</strong></h4>
+<p>Occurs when multiple resistors connect the same two nodes.</p>
+<p>The equivalent resistance is given by:</p>
+<p>1 / R_eq = Σ (1 / Rᵢ) for i = 1 to n</p>
+<p>For example, two resistors R₁ = 3Ω and R₂ = 6Ω in parallel:</p>
+<p>1 / R_eq = 1 / 3 + 1 / 6 = 1 / 2<br/>
+⇒ R_eq = 2Ω</p>
+<h4 id="3-nested-and-recursive-reduction">3. <strong>Nested and Recursive Reduction</strong></h4>
+<p>More complex circuits may contain:
+- Series blocks within parallel branches
+- Parallel blocks within series chains
+These must be simplified in layers using recursive detection of series and parallel patterns.</p>
+<h4 id="4-cycle-and-mesh-analysis-optional-advanced">4. <strong>Cycle and Mesh Analysis (Optional Advanced)</strong></h4>
+<p>If a network includes loops that cannot be simplified with series-parallel rules, more advanced strategies (e.g., delta-wye transformation, matrix-based Kirchhoff laws) can be introduced. These are beyond the basic algorithm but compatible with the graph representation.</p>
+<h4 id="5-simplification-algorithm-pseudocode">5. <strong>Simplification Algorithm (Pseudocode)</strong></h4>
+<p>Below is the pseudocode for iteratively simplifying a resistor network using series and parallel reductions:</p>
+<pre><code class="language-plaintext">Algorithm SimplifyResistorNetwork(Graph G):
+
+    while True:
+        changed ← False
+
+        for each node v in G:
+            if isSeriesNode(v):
+                mergeSeriesResistors(v)
+                changed ← True
+
+        for each pair of nodes (u, v) with multiple edges:
+            mergeParallelResistors(u, v)
+            changed ← True
+
+        if not changed:
+            break
+
+    return totalResistanceBetween(startNode, endNode)
+</code></pre>
+<hr/>
+<h2 id="example-analyses">Example Analyses</h2>
+<h3 id="example-1-simple-series-circuit">Example 1: Simple Series Circuit</h3>
+<p><strong>Topology</strong><br/>
+Three resistors connected in sequence: 1Ω, 2Ω, 3Ω</p>
+<p><strong>Graph</strong><br/>
+Path of 4 nodes: A → B → C → D</p>
+<p><strong>Computation</strong><br/>
+R_eq = 1 + 2 + 3 = 6Ω</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create the series resistor network
+G = nx.Graph()
+G.add_nodes_from(["A", "B", "C", "D"])
+G.add_edges_from([
+    ("A", "B", {"resistance": 1}),
+    ("B", "C", {"resistance": 2}),
+    ("C", "D", {"resistance": 3})
+])
+
+pos = {"A": (0, 0), "B": (1, 0), "C": (2, 0), "D": (3, 0)}
+edge_labels = nx.get_edge_attributes(G, "resistance")
+
+plt.figure(figsize=(8, 2))
+nx.draw(G, pos, with_labels=True, node_color='lightgreen', node_size=1000, font_size=14)
+nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): f"{d}Ω" for (u, v), d in edge_labels.items()})
+plt.title("Resistor Network - Simple Series Connection")
+plt.axis('off')
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-1.png"/></p>
+<p><strong>Figure:</strong> Graph representation of a simple series resistor network.<br/>
+Nodes A, B, C, and D represent junctions, and edges indicate resistors connected in series with their resistance values.</p>
+<hr/>
+<h3 id="example-2-parallel-configuration">Example 2: Parallel Configuration</h3>
+<p><strong>Topology</strong><br/>
+Two resistors between node A and B: 4Ω and 12Ω</p>
+<p><strong>Computation</strong><br/>
+1 / R_eq = 1 / 4 + 1 / 12 = 1 / 3<br/>
+⇒ R_eq = 3Ω</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import networkx as nx
+import matplotlib.pyplot as plt
+
+G = nx.MultiGraph()
+G.add_nodes_from(["A", "B"])
+G.add_edges_from([
+    ("A", "B", {"resistance": 4}),
+    ("A", "B", {"resistance": 12}),
+])
+
+pos = {"A": (0, 0), "B": (2, 0)}
+
+plt.figure(figsize=(6, 3))
+nx.draw(G, pos, with_labels=True, node_color='lightcoral', node_size=1000, font_size=14, connectionstyle='arc3,rad=0.2')
+
+edges = list(G.edges(keys=True, data=True))
+for idx, (u, v, k, d) in enumerate(edges):
+    rad = 0.2 if idx % 2 == 0 else -0.2
+    nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], connectionstyle=f'arc3,rad={rad}', width=2)
+    mid_x = (pos[u][0] + pos[v][0]) / 2
+    mid_y = (pos[u][1] + pos[v][1]) / 2 + (0.15 if rad &gt; 0 else -0.15)
+    plt.text(mid_x, mid_y, f"{d['resistance']}Ω", fontsize=12, ha='center', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=1))
+
+plt.title("Resistor Network – Parallel Configuration")
+plt.axis('off')
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-2.png"/></p>
+<p><strong>Figure:</strong> Graph representation of a resistor network with two parallel resistors between nodes A and B.<br/>
+The two curved edges represent independent resistor paths of 4Ω (top) and 12Ω (bottom).</p>
+<hr/>
+<h3 id="example-3-nested-combination">Example 3: Nested Combination</h3>
+<p><strong>Topology</strong><br/>
+- R₁ = 2Ω and R₂ = 3Ω in series<br/>
+- Resulting block in parallel with R₃ = 6Ω</p>
+<p><strong>Step 1</strong><br/>
+R_series = R₁ + R₂ = 2 + 3 = 5Ω</p>
+<p><strong>Step 2</strong><br/>
+1 / R_eq = 1 / 5 + 1 / 6 = 11 / 30<br/>
+⇒ R_eq ≈ 2.73Ω</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create a graph representing a resistor network
+G = nx.Graph()
+
+# Add nodes representing circuit junctions
+G.add_nodes_from(["A", "B", "C"])
+
+# Add edges with resistance values
+edges = [
+    ("A", "B", {"resistance": 2}),
+    ("B", "C", {"resistance": 3}),
+    ("A", "C", {"resistance": 6}),
+]
+G.add_edges_from(edges)
+
+# Draw the graph
+pos = nx.spring_layout(G, seed=42)
+edge_labels = nx.get_edge_attributes(G, "resistance")
+
+plt.figure(figsize=(6, 4))
+nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=1000, font_size=14)
+nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): f"{d}Ω" for (u, v), d in edge_labels.items()})
+plt.title("Resistor Network - Nested Combination")
+plt.axis('off')
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image.png"/>
+<strong>Figure:</strong> Graph representation of a resistor network with a nested combination.<br/>
+Nodes represent junction points in the circuit, and edges represent resistors with their respective resistance values.</p>
+<hr/>
+<h3 id="example-4-triangle-loop">Example 4: Triangle Loop</h3>
+<p><strong>Topology</strong>:
+Nodes A, B, and C connected to form a triangle with:
+- R_AB = 2Ω, R_BC = 4Ω, R_CA = 6Ω</p>
+<p><strong>Observation</strong>:
+This is a closed loop with no clear series/parallel reduction.</p>
+<p><strong>Solution</strong>:
+Apply more advanced graph-based transformations or Kirchhoff’s matrix methods.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create the triangle loop graph
+G = nx.Graph()
+
+# Add nodes
+G.add_nodes_from(["A", "B", "C"])
+
+# Add edges with resistance values
+edges = [
+    ("A", "B", {"resistance": 2}),
+    ("B", "C", {"resistance": 4}),
+    ("C", "A", {"resistance": 6}),
+]
+G.add_edges_from(edges)
+
+# Define positions in a triangle
+pos = {"A": (0, 1), "B": (2, 1), "C": (1, 0)}
+
+# Extract edge labels
+edge_labels = nx.get_edge_attributes(G, "resistance")
+
+# Draw the graph
+plt.figure(figsize=(6, 4))
+nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=1000, font_size=14)
+nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): f"{d}Ω" for (u, v), d in edge_labels.items()})
+plt.title("Resistor Network – Triangle Loop (Mesh)")
+plt.axis('off')
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-3.png"/></p>
+<p><strong>Figure:</strong> Graph representation of a triangular resistor network (mesh).<br/>
+This closed-loop system requires matrix-based or graph-theoretic methods for analysis.</p>
+<h3 id="example-5-wheatstone-bridge-non-reducible-network">Example 5: Wheatstone Bridge (Non-Reducible Network)</h3>
+<p><strong>Topology</strong><br/>
+Five resistors arranged in a bridge network between nodes A, C, D, and E.<br/>
+- R1 = 100Ω between A and C<br/>
+- R2 = 100Ω between A and D<br/>
+- R3 = 100Ω between C and E<br/>
+- R4 = 100Ω between D and E<br/>
+- R5 = 50Ω (bridge resistor) between C and D</p>
+<p><strong>Observation</strong><br/>
+This network cannot be reduced using series-parallel rules due to the bridge connection (R5).<br/>
+It requires advanced techniques such as delta-wye transformation or solving via Kirchhoff’s current/voltage laws.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create the Wheatstone Bridge graph
+G = nx.Graph()
+
+# Add nodes
+G.add_nodes_from(["A", "C", "D", "E"])
+
+# Add edges with resistance values
+edges = [
+    ("A", "C", {"resistance": 100}),  # R1
+    ("A", "D", {"resistance": 100}),  # R2
+    ("C", "E", {"resistance": 100}),  # R3
+    ("D", "E", {"resistance": 100}),  # R4
+    ("C", "D", {"resistance": 50})    # R5 (bridge)
+]
+G.add_edges_from(edges)
+
+# Position the nodes in a diamond (bridge) shape
+pos = {
+    "A": (0, 1),
+    "C": (1, 2),
+    "D": (1, 0),
+    "E": (2, 1)
+}
+
+# Get edge labels
+edge_labels = nx.get_edge_attributes(G, "resistance")
+
+# Draw the graph
+plt.figure(figsize=(7, 4))
+nx.draw(G, pos, with_labels=True, node_color='plum', node_size=1000, font_size=14)
+nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): f"{d}Ω" for (u, v), d in edge_labels.items()})
+plt.title("Resistor Network – Wheatstone Bridge")
+plt.axis('off')
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-4.png"/></p>
+<p><strong>Figure:</strong> Graph representation of a Wheatstone Bridge resistor network.<br/>
+This non-reducible topology includes a central resistor (R₅) and cannot be simplified using series-parallel rules.<br/>
+It requires advanced analysis such as Kirchhoff’s laws or delta-wye transformation.</p>
+<hr/>
+<h2 id="efficiency-and-performance">Efficiency and Performance</h2>
+<h3 id="time-complexity">Time Complexity</h3>
+<p>Each simplification step (series or parallel) is:
+- <strong>O(1)</strong> per node/edge
+- <strong>O(E)</strong> per iteration</p>
+<p>Overall simplification is linear per round but may require multiple rounds:
+- <strong>Total Complexity</strong>: O(k × E), where k is the number of iterations</p>
+<h3 id="space-complexity">Space Complexity</h3>
+<ul>
+<li>Graph stored as adjacency list or edge list: O(N + E)</li>
+<li>Temporary storage for intermediate graphs is negligible</li>
+</ul>
+<h3 id="scalability">Scalability</h3>
+<ul>
+<li>Works efficiently for sparse graphs (typical in resistor networks)</li>
+<li>Can process networks with thousands of resistors in milliseconds</li>
+<li>May be extended to GPU or parallelized versions for real-time analysis</li>
+</ul>
+<h3 id="example-6-scalable-grid-network">Example 6: Scalable Grid Network</h3>
+<p><strong>Topology</strong><br/>
+A 3×3 resistor grid where each node is connected to its horizontal and vertical neighbors.<br/>
+This setup represents large-scale networks like PCBs, sensor arrays, or chip architectures.</p>
+<p><strong>Observation</strong><br/>
+Manual simplification becomes infeasible in grid-like resistor networks.<br/>
+Graph-based algorithms allow scalable and automated analysis across thousands of components.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create a 3×3 grid resistor network
+G = nx.Graph()
+
+# Grid size
+rows, cols = 3, 3
+nodes = {}
+
+# Add nodes with grid positions
+for i in range(rows):
+    for j in range(cols):
+        node = chr(65 + i * cols + j)  # A, B, C, ..., I
+        nodes[(i, j)] = node
+        G.add_node(node, pos=(j, -i))
+
+# Connect horizontal and vertical neighbors
+for i in range(rows):
+    for j in range(cols):
+        if j &lt; cols - 1:
+            G.add_edge(nodes[(i, j)], nodes[(i, j + 1)], resistance=1)
+        if i &lt; rows - 1:
+            G.add_edge(nodes[(i, j)], nodes[(i + 1, j)], resistance=1)
+
+# Extract positions and edge labels
+pos = nx.get_node_attributes(G, "pos")
+edge_labels = nx.get_edge_attributes(G, "resistance")
+
+# Draw the graph
+plt.figure(figsize=(7, 7))
+nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=1000, font_size=14)
+nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): f"{d}Ω" for (u, v), d in edge_labels.items()})
+plt.title("Resistor Network – 3×3 Grid")
+plt.axis('off')
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-5.png"/></p>
+<p><strong>Figure:</strong> Graph representation of a 3×3 grid resistor network.<br/>
+This structure illustrates scalability challenges in circuit analysis, where traditional simplification methods are insufficient, and automated graph-based techniques become essential.</p>
+<hr/>
+<h2 id="conclusion">Conclusion</h2>
+<p>Graph theory provides a highly effective, scalable, and mathematically rigorous approach to computing equivalent resistance in electrical circuits. It transforms an otherwise error-prone, manual task into an automated and efficient process, capable of handling:</p>
+<ul>
+<li>Nested series-parallel combinations</li>
+<li>Multiple resistor paths</li>
+<li>Loops and bridges (with extensions)</li>
+<li>Real-world circuit topologies</li>
+</ul>
+<p>This technique is especially suited for:
+- Circuit simulation software
+- PCB design tools
+- Educational platforms
+- Optimization engines</p>
+<p>By abstracting electrical behavior into graphs, engineers can focus on high-level design without getting lost in repetitive calculations.</p>
+<hr/>
+<h2 id="future-improvements-and-applications">Future Improvements and Applications</h2>
+<ol>
+<li>
+<p><strong>Symbolic Analysis Support</strong><br/>
+   Allow symbolic variables for resistances ($R_1, R_2$) for use in teaching, optimization, or documentation.</p>
+</li>
+<li>
+<p><strong>Dynamic Circuit Components</strong><br/>
+   Extend the model to time-dependent resistors or incorporate capacitors and inductors with impedance modeling.</p>
+</li>
+<li>
+<p><strong>Kirchhoff Integration</strong><br/>
+   Combine graph simplification with Kirchhoff’s laws to solve for voltages and currents using matrix methods.</p>
+</li>
+<li>
+<p><strong>User Interface and Visualization</strong><br/>
+   Develop visual tools to display graph-based simplification steps for better debugging and learning.</p>
+</li>
+<li>
+<p><strong>Machine Learning Integration</strong><br/>
+   Apply graph neural networks (GNNs) to recognize common patterns and accelerate analysis through learned reductions.</p>
+</li>
+<li>
+<p><strong>Hardware Acceleration</strong><br/>
+   Implement the reduction algorithm on FPGAs or GPUs for high-speed embedded analysis systems.</p>
+</li>
+</ol>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
