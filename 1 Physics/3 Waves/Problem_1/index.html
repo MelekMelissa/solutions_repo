@@ -172,6 +172,321 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h1 id="problem-1-interference-patterns-on-a-water-surface">Problem 1: Interference Patterns on a Water Surface</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Wave phenomena are at the heart of many branches of physics and engineering. Whether in the form of ripples on a pond, sound propagating through the air, or electromagnetic radiation traversing the vacuum of space, waves are fundamental carriers of energy and information. One of the most fascinating and informative behaviors of waves is <strong>interference</strong>—a process where two or more wavefronts overlap and combine, leading to patterns of amplification and cancellation depending on their phase relationship.</p>
+<p>The concept of interference is central to our understanding of wave behavior. It demonstrates the <strong>principle of superposition</strong>, which states that when multiple waves coexist in space, the resulting displacement at any point is the algebraic sum of the individual displacements. This can lead to <strong>constructive interference</strong>, where waves reinforce each other, or <strong>destructive interference</strong>, where they cancel out.</p>
+<p>The importance of interference transcends academic theory. It has direct applications in:</p>
+<ul>
+<li><strong>Optics</strong>, through devices like diffraction gratings, holography, and interferometers,</li>
+<li><strong>Acoustics</strong>, where speaker arrays and room designs are optimized based on interference zones,</li>
+<li><strong>Telecommunications</strong>, particularly in phased array antennas and signal multiplexing,</li>
+<li><strong>Quantum physics</strong>, where probability waves interfere, as famously illustrated in the double-slit experiment.</li>
+</ul>
+<p>Historically, wave interference was pivotal in the <strong>wave-particle duality debate</strong>. Thomas Young’s double-slit experiment in 1801 provided compelling evidence that light behaves as a wave, shaking the foundations of Newtonian optics and laying the groundwork for modern quantum mechanics.</p>
+<p>In this study, we explore interference in a more tangible, visual form: circular water waves originating from point sources arranged in symmetric configurations. Water surfaces are ideal for demonstrating interference because they are two-dimensional, intuitive, and visually rich. By simulating such systems, we can examine how the number and arrangement of wave sources—specifically those placed at the vertices of regular polygons—impact the resulting interference patterns.</p>
+<p>This approach offers a hands-on, computational perspective on core wave principles. It allows us to:</p>
+<ul>
+<li>Visualize how <strong>wavefront geometry</strong> affects interference,</li>
+<li>Understand how <strong>symmetry and spacing</strong> influence pattern formation,</li>
+<li>Relate simulated outcomes to <strong>real-world systems</strong> involving sound, light, and radio waves.</li>
+</ul>
+<p>Through careful modeling and analysis, this project deepens our understanding of wave interaction and provides insight into the universal nature of interference, across both classical and modern physics contexts.</p>
+<hr/>
+<h2 id="2-motivation">2. Motivation</h2>
+<p>Studying wave interference on a water surface provides an accessible and visual method for grasping wave behavior. The circular ripples created by point sources mimic a wide range of physical systems. This simulation allows us to explore:</p>
+<ul>
+<li>How wavefronts from multiple coherent sources interact,</li>
+<li>The impact of source geometry and arrangement on the resulting patterns,</li>
+<li>The emergence of symmetry, nodes, and anti-nodes in the interference field.</li>
+</ul>
+<p>Applications of wave interference are widespread:</p>
+<ul>
+<li><strong>Noise-canceling headphones</strong> use destructive interference to neutralize ambient sound.</li>
+<li><strong>Satellite communication</strong> relies on constructive interference from phased antenna arrays.</li>
+<li><strong>Concert hall acoustics</strong> are optimized by minimizing unwanted interference patterns.</li>
+<li><strong>Medical imaging</strong> (ultrasound, MRI) uses wave interference to form detailed internal images.</li>
+</ul>
+<p>Simulating wave interference in a controlled setup helps build intuition for advanced topics in electromagnetism, quantum mechanics, and engineering.</p>
+<hr/>
+<h2 id="3-theoretical-background">3. Theoretical Background</h2>
+<p>The displacement ψᵢ(r, t) at a point <strong>r</strong> on the water surface due to a point source <em>i</em> at position <strong>rᵢ</strong> is:</p>
+<div class="arithmatex">\[
+\psi_i(\vec{r}, t) = A \cos\left(k \left| \vec{r} - \vec{r}_i \right| - \omega t + \phi_i\right)
+\]</div>
+<p>Where:</p>
+<ul>
+<li>A: amplitude of the wave  </li>
+<li>k = 2π / λ — wave number (λ is the wavelength)  </li>
+<li>ω = 2π f — angular frequency (f is the frequency)  </li>
+<li>|r − rᵢ| — distance between point and source  </li>
+<li>φᵢ — initial phase</li>
+</ul>
+<p>For N coherent sources, the total displacement is:</p>
+<div class="arithmatex">\[
+\Psi(\vec{r}, t) = \sum_{i=1}^{N} \psi_i(\vec{r}, t)
+\]</div>
+<h3 id="complex-form-optional">Complex Form (Optional)</h3>
+<p>The wave can also be expressed in complex form:</p>
+<div class="arithmatex">\[
+\psi_i(\vec{r}, t) = A e^{i\left(k |\vec{r} - \vec{r}_i| - \omega t + \phi_i\right)}
+\]</div>
+<p>Taking the real part yields the physical wave:</p>
+<div class="arithmatex">\[
+\Psi(\vec{r}, t) = \text{Re} \left[ \sum_{i=1}^{N} \psi_i(\vec{r}, t) \right]
+\]</div>
+<p>This form is helpful in handling phase shifts and performing Fourier analysis.</p>
+<hr/>
+<h2 id="4-simulation-description">4. Simulation Description</h2>
+<p>We simulate interference patterns using coherent wave sources placed at the vertices of a regular polygon (e.g., triangle, square, pentagon).</p>
+<h3 id="parameters">Parameters</h3>
+<ul>
+<li><strong>Number of Sources (N)</strong>: 5 (regular pentagon)</li>
+<li><strong>Amplitude (A)</strong>: 1</li>
+<li><strong>Wavelength</strong>: 20 units</li>
+<li><strong>Frequency</strong>: 1 Hz</li>
+<li><strong>Phase Difference</strong>: All sources in phase</li>
+<li><strong>Grid Size</strong>: 400x400</li>
+<li><strong>Radius</strong>: 50 units from origin</li>
+<li><strong>Snapshot Time</strong>: <span class="arithmatex">\( t = 0 \)</span></li>
+</ul>
+<hr/>
+<h2 id="5-python-simulation-code">5. Python Simulation Code</h2>
+<p>The following Python code simulates the interference pattern generated by five coherent point sources arranged in a regular pentagon. All sources emit waves with equal amplitude, wavelength, and phase. The resulting displacement is computed across a 2D grid, and a single 2D contour plot is used to visualize the interference pattern clearly and efficiently.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Wave parameters
+A = 1                       # Amplitude
+wavelength = 20             # Wavelength (in arbitrary units)
+k = 2 * np.pi / wavelength  # Wave number
+omega = 2 * np.pi           # Angular frequency (corresponds to f = 1 Hz)
+N = 5                       # Number of sources (regular pentagon)
+radius = 50                 # Distance of sources from origin
+size = 400                  # Grid resolution
+
+# Create a 2D grid of spatial coordinates
+x = np.linspace(-100, 100, size)
+y = np.linspace(-100, 100, size)
+X, Y = np.meshgrid(x, y)
+
+# Determine source positions based on regular polygon geometry
+angles = np.linspace(0, 2 * np.pi, N, endpoint=False)
+sources = [(radius * np.cos(a), radius * np.sin(a)) for a in angles]
+
+# Calculate total wave displacement using superposition
+t = 0  # Time snapshot
+Psi = np.zeros_like(X)
+for sx, sy in sources:
+    r = np.sqrt((X - sx)**2 + (Y - sy)**2)  # Distance from source to each point
+    Psi += A * np.cos(k * r - omega * t)    # Add wave contribution
+
+# Plot the 2D interference pattern with a new color map
+plt.figure(figsize=(8, 6))
+contour = plt.contourf(X, Y, Psi, levels=100, cmap='viridis')  # Color map changed here
+plt.colorbar(label='Displacement')
+plt.scatter(*zip(*sources), color='black', label='Sources')  # Mark source positions
+plt.title('2D Interference Pattern (5-Vertex Regular Polygon)')
+plt.xlabel('x [cm]')
+plt.ylabel('y [cm]')
+plt.axis('equal')
+plt.legend()
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image.png"/></p>
+<p><strong>Explanation Figure 1:</strong></p>
+<ul>
+<li>The <code>cmap='viridis'</code> line changes the color palette from <code>coolwarm</code> to <code>viridis</code>, which is perceptually uniform and colorblind-friendly.</li>
+<li>You may also try other colormaps like <code>plasma</code>, <code>inferno</code>, <code>magma</code>, or <code>cividis</code> for alternative visual styles.</li>
+</ul>
+<hr/>
+<h2 id="6-results-and-discussion">6. Results and Discussion</h2>
+<p>The resulting interference pattern from five sources arranged in a pentagon exhibits:</p>
+<ul>
+<li><strong>Radial symmetry</strong> centered around the origin.</li>
+<li><strong>Alternating constructive and destructive zones</strong>, creating concentric ripples and spokes.</li>
+<li><strong>Rotational symmetry</strong> consistent with the geometry of the polygon (72° intervals).</li>
+</ul>
+<p>To further analyze the <strong>destructive interference</strong>, we can identify the <strong>nodal lines</strong>—regions where the total wave displacement is nearly zero due to complete phase cancellation. These zones form clear patterns of darkness in the overall interference field.</p>
+<p><strong>Figure 2: Nodal Lines Map — Regions of Destructive Interference</strong><br/>
+The binary map below highlights where destructive interference occurs. These areas correspond to the "quiet zones" or wave nulls observed in multi-source systems.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+A = 1
+wavelength = 20
+k = 2 * np.pi / wavelength
+omega = 2 * np.pi
+N = 5  # Number of sources (regular pentagon)
+radius = 50
+size = 400
+
+# Create grid
+x = np.linspace(-100, 100, size)
+y = np.linspace(-100, 100, size)
+X, Y = np.meshgrid(x, y)
+
+# Define source positions (vertices of a regular pentagon)
+angles = np.linspace(0, 2 * np.pi, N, endpoint=False)
+sources = [(radius * np.cos(a), radius * np.sin(a)) for a in angles]
+
+# Superposition at time t = 0
+t = 0
+Psi = np.zeros_like(X)
+for sx, sy in sources:
+    r = np.sqrt((X - sx)**2 + (Y - sy)**2)
+    Psi += A * np.cos(k * r - omega * t)
+
+# Threshold-based nodal line detection
+threshold = 0.1
+nodal_mask = np.abs(Psi) &lt; threshold
+
+# Plot binary nodal line map
+plt.figure(figsize=(8, 6))
+plt.imshow(nodal_mask, extent=[-100, 100, -100, 100], cmap='Greys', origin='lower')
+plt.title("Nodal Lines (Destructive Interference Zones)")
+plt.xlabel("x [cm]")
+plt.ylabel("y [cm]")
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-1.png"/></p>
+<h3 id="comparative-analysis">Comparative Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Polygon</th>
+<th>Symmetry</th>
+<th>Pattern Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triangle</td>
+<td>3-fold (120°)</td>
+<td>Spiral wavefronts, large lobes</td>
+</tr>
+<tr>
+<td>Square</td>
+<td>4-fold (90°)</td>
+<td>Grid-like nodal lines</td>
+</tr>
+<tr>
+<td>Pentagon</td>
+<td>5-fold (72°)</td>
+<td>Star-like central region, dense pattern</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="7-real-world-applications">7. Real-World Applications</h2>
+<ul>
+<li><strong>LIGO interferometers</strong> detect gravitational waves via fringe shifts.</li>
+<li><strong>Phased-array antennas</strong> enhance signal directionality using constructive interference.</li>
+<li><strong>Holography</strong> records 3D interference on 2D surfaces.</li>
+<li><strong>Architectural acoustics</strong> employ interference management to reduce echo and noise.</li>
+</ul>
+<p>To illustrate the localized behavior of wave interference in practical applications such as sensors or detectors, a 1D cross-sectional profile of the wave displacement is shown below.</p>
+<p><strong>Figure 3: 1D Cross-Section of the Interference Pattern</strong><br/>
+This graph displays the wave displacement along the y-axis at <span class="arithmatex">\( x = 0 \)</span>. Each peak and trough reflects zones of constructive or destructive interference, respectively—similar to how precision detectors like LIGO sense displacement.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+A = 1
+wavelength = 20
+k = 2 * np.pi / wavelength
+omega = 2 * np.pi
+N = 5
+radius = 50
+size = 400
+
+# Grid
+x = np.linspace(-100, 100, size)
+y = np.linspace(-100, 100, size)
+X, Y = np.meshgrid(x, y)
+
+# Source positions
+angles = np.linspace(0, 2 * np.pi, N, endpoint=False)
+sources = [(radius * np.cos(a), radius * np.sin(a)) for a in angles]
+
+# Superposition
+t = 0
+Psi = np.zeros_like(X)
+for sx, sy in sources:
+    r = np.sqrt((X - sx)**2 + (Y - sy)**2)
+    Psi += A * np.cos(k * r - omega * t)
+
+# 1D Cross-section along x = 0
+center_index = size // 2
+y_line = Y[:, center_index]
+psi_line = Psi[:, center_index]
+
+# Plot
+plt.figure(figsize=(8, 4))
+plt.plot(y_line, psi_line, label='Displacement at x = 0')
+plt.axhline(0, color='gray', linestyle='--')
+plt.title("1D Cross-Section of Interference Pattern")
+plt.xlabel("y [cm]")
+plt.ylabel("Displacement")
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-2.png"/></p>
+<hr/>
+<h2 id="8-suggestions-for-future-work">8. Suggestions for Future Work</h2>
+<ul>
+<li><strong>Time-Dependent Animation</strong>: Animate wavefront propagation.</li>
+<li><strong>Phase Shift Variations</strong>: Explore dynamic or fixed phase differences.
+ -<strong>Asymmetric Configurations</strong>: Study irregular or random source placements.</li>
+<li><strong>Energy Damping</strong>: Simulate realistic wave attenuation over time.</li>
+</ul>
+<p>To explore how wave energy is distributed spatially across the surface, we visualize the <strong>intensity</strong> of the interference pattern. This is calculated as the square of the total wave displacement.</p>
+<p><strong>Figure 4: Intensity Heatmap of the Interference Pattern</strong><br/>
+The heatmap below shows areas of high and low energy concentration, indicating strong constructive and destructive interference respectively.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Reuse Psi from previous calculation
+intensity = Psi**2  # Intensity is proportional to displacement squared
+
+# Plot intensity heatmap
+plt.figure(figsize=(7, 6))
+plt.imshow(intensity, extent=[-100, 100, -100, 100], origin='lower', cmap='inferno')
+plt.title("Intensity Heatmap of Interference Pattern")
+plt.xlabel("x [cm]")
+plt.ylabel("y [cm]")
+plt.colorbar(label='Wave Intensity (A²)')
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-3.png"/></p>
+<h2 id="9-conclusion">9. Conclusion</h2>
+<p>This project demonstrates the beauty and complexity of wave interference on a water surface. Key insights include:</p>
+<ul>
+<li>The structure of interference patterns depends strongly on source geometry.</li>
+<li>Symmetry plays a central role in determining nodal and antinodal arrangements.</li>
+<li>Numerical simulations offer a powerful lens through which to understand fundamental physics.</li>
+</ul>
+<p>By placing coherent point sources at the vertices of a regular polygon, we were able to simulate and visualize structured interference fields with rich symmetry. From contour plots to intensity maps, each visualization revealed a different aspect of how waves combine, amplify, or cancel out.</p>
+<p>These results have direct parallels in real-world systems — from phased-array antennas to quantum wave functions — and highlight the foundational role interference plays across physics and engineering.</p>
+<p>Overall, this study reinforces the value of computational modeling in education and research, and provides a platform for future exploration into time dynamics, damping effects, and phase-shift phenomena in wave systems.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
