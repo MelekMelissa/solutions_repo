@@ -1,5 +1,6 @@
 # Problem 1
- # Equivalent Resistance Calculation Using Graph Theory
+
+## Equivalent Resistance Calculation Using Graph Theory
 
 ##  Introduction
 
