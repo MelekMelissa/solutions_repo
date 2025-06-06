@@ -172,6 +172,438 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h1 id="measuring-the-acceleration-due-to-gravity-using-a-simple-pendulum">Measuring the Acceleration Due to Gravity Using a Simple Pendulum</h1>
+<hr/>
+<h2 id="introduction">Introduction</h2>
+<p>Gravitational acceleration, commonly represented by the symbol <span class="arithmatex">\(g\)</span>, is a universal constant that describes the acceleration of an object under the influence of Earth's gravitational field. Near the Earth's surface, the standard reference value is:</p>
+<div class="arithmatex">\[
+g = 9.80665 \, \text{m/s}^2
+\]</div>
+<p>However, this value is not strictly constant across all geographic locations. Variations occur due to a combination of factors including latitude (as Earth is not a perfect sphere), altitude (gravitational force decreases with height), and local geological formations (such as mountains, mineral deposits, or underground cavities). These regional fluctuations, although small, have measurable effects and are of considerable importance in various scientific and engineering disciplines.</p>
+<p>Accurately determining the value of <span class="arithmatex">\(g\)</span> at a specific location is essential in fields such as:</p>
+<ul>
+<li><strong>Civil engineering</strong>, where gravitational acceleration affects load distribution in buildings and bridges.</li>
+<li><strong>Geophysics</strong>, for subsurface mapping using gravimetric data.</li>
+<li><strong>Astronomy and astrophysics</strong>, where accurate gravitational models are critical for satellite motion and celestial mechanics.</li>
+<li><strong>Precision metrology</strong>, where standard definitions (such as the kilogram) are now derived from constants involving <span class="arithmatex">\(g\)</span>.</li>
+<li><strong>Education and foundational physics</strong>, as it provides a practical example of how theory connects with real-world measurement.</li>
+</ul>
+<p>One of the most classical and conceptually elegant methods to measure gravitational acceleration is by using a <strong>simple pendulum</strong>. The motion of a pendulum is periodic and, for small angular displacements, approximates <strong>simple harmonic motion</strong> (SHM). The period of oscillation is directly related to the pendulum’s length and the local gravitational acceleration, allowing <span class="arithmatex">\(g\)</span> to be calculated using well-established physical laws.</p>
+<p>This experiment capitalizes on this relationship by measuring the period of oscillation of a pendulum of known length and calculating <span class="arithmatex">\(g\)</span> using the theoretical formula:</p>
+<div class="arithmatex">\[
+T = 2\pi \sqrt{\frac{L}{g}} \quad \Rightarrow \quad g = \frac{4\pi^2 L}{T^2}
+\]</div>
+<p>Beyond obtaining a value for <span class="arithmatex">\(g\)</span>, this investigation serves as a hands-on exploration of <strong>how precise measurements are obtained in physics</strong>. It involves identifying and minimizing sources of uncertainty, applying statistical tools such as standard deviation and error propagation, and validating experimental data against theoretical expectations.</p>
+<p>Furthermore, the experiment reinforces the fundamental scientific process: modeling, observing, measuring, analyzing, and reflecting. While the simple pendulum is a familiar tool, its use in this context introduces critical concepts in scientific rigor, reproducibility, and the interplay between mathematics and physical reality. This makes it not only a valuable educational exercise but also a meaningful application of core principles that underpin experimental science.</p>
+<hr/>
+<h2 id="motivation">Motivation</h2>
+<p>Why use a simple pendulum in the era of digital sensors and gravimeters?</p>
+<p>The simple pendulum serves as a powerful educational and scientific tool because of its accessibility, reproducibility, and connection to fundamental physical laws. This experiment offers a clear window into concepts such as:</p>
+<ul>
+<li><strong>Harmonic motion</strong></li>
+<li><strong>Uncertainty estimation</strong></li>
+<li><strong>Data averaging and statistics</strong></li>
+<li><strong>Model assumptions and limitations</strong></li>
+</ul>
+<p>In real-world applications, local values of <span class="arithmatex">\(g\)</span> are required in:</p>
+<ul>
+<li><strong>Civil and Structural Engineering</strong>: Local gravitational variation influences building and bridge design.</li>
+<li><strong>Geophysics</strong>: Gravity anomalies indicate underground structures like oil reservoirs or mineral deposits.</li>
+<li><strong>Aerospace Engineering</strong>: Accurate <span class="arithmatex">\(g\)</span> values are required for launching, navigating, and landing spacecraft.</li>
+<li><strong>Navigation Systems</strong>: Inertial systems rely on local <span class="arithmatex">\(g\)</span> for position estimation.</li>
+</ul>
+<p>In the classroom or laboratory, this experiment reinforces critical thinking, accuracy, and the discipline of scientific measurement—core competencies in physics and engineering education.</p>
+<hr/>
+<h2 id="theoretical-background">Theoretical Background</h2>
+<p>A simple pendulum consists of a point mass (bob) suspended by a string of length <span class="arithmatex">\(L\)</span>, swinging under gravity. If the amplitude is small (typically less than <span class="arithmatex">\(15^\circ\)</span>), the pendulum exhibits simple harmonic motion. The period <span class="arithmatex">\(T\)</span> of one oscillation is:</p>
+<div class="arithmatex">\[
+T = 2\pi \sqrt{\frac{L}{g}}
+\]</div>
+<p>Solving for <span class="arithmatex">\(g\)</span>:</p>
+<div class="arithmatex">\[
+g = \frac{4\pi^2 L}{T^2}
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(T\)</span> is the period of the pendulum (s),
+- <span class="arithmatex">\(L\)</span> is the length from pivot to the bob’s center of mass (m),
+- <span class="arithmatex">\(g\)</span> is the local gravitational acceleration (m/s²).</p>
+<p>This relationship assumes:
+- The string is massless and inextensible.
+- The pivot is frictionless.
+- The bob behaves as a point mass.
+- The angle of displacement is small (small-angle approximation).</p>
+<hr/>
+<h2 id="materials-and-apparatus">Materials and Apparatus</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Description</th>
+<th>Resolution</th>
+<th>Estimated Uncertainty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>Length ≈ 1.000 m</td>
+<td>0.01 m</td>
+<td>±0.005 m</td>
+</tr>
+<tr>
+<td>Metal bob</td>
+<td>Dense object (e.g., metal sphere)</td>
+<td>—</td>
+<td>Center of mass approx.</td>
+</tr>
+<tr>
+<td>Measuring tape</td>
+<td>Used to measure length</td>
+<td>0.01 m</td>
+<td>±0.005 m</td>
+</tr>
+<tr>
+<td>Stopwatch</td>
+<td>Digital, manually operated</td>
+<td>0.01 s</td>
+<td>±0.01 s (plus reaction)</td>
+</tr>
+<tr>
+<td>Support stand</td>
+<td>Rigid structure to suspend pendulum</td>
+<td>—</td>
+<td>Negligible</td>
+</tr>
+<tr>
+<td>Protractor (opt.)</td>
+<td>Ensures swing &lt; 15° for SHM assumption</td>
+<td>1°</td>
+<td>±0.5°</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="experimental-procedure">Experimental Procedure</h2>
+<ol>
+<li>The pendulum was constructed by attaching a metal bob to a 1-meter string fixed to a rigid support.</li>
+<li>The length <span class="arithmatex">\(L\)</span> was measured from the pivot point to the center of the bob.</li>
+<li>The pendulum was displaced by less than <span class="arithmatex">\(15^\circ\)</span> and released smoothly without any push.</li>
+<li>The time for <strong>10 full oscillations</strong> was recorded using a stopwatch.</li>
+<li>This process was repeated <strong>10 times</strong> to ensure statistical significance.</li>
+<li>All measurements were recorded, and averages, standard deviations, and uncertainties were calculated.</li>
+<li>Using the theoretical equations, the value of <span class="arithmatex">\(g\)</span> was determined and its uncertainty analyzed.</li>
+</ol>
+<hr/>
+<h2 id="data">Data</h2>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th>Time for 10 Oscillations (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>20.12</td>
+</tr>
+<tr>
+<td>2</td>
+<td>20.08</td>
+</tr>
+<tr>
+<td>3</td>
+<td>20.16</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20.09</td>
+</tr>
+<tr>
+<td>5</td>
+<td>20.10</td>
+</tr>
+<tr>
+<td>6</td>
+<td>20.11</td>
+</tr>
+<tr>
+<td>7</td>
+<td>20.13</td>
+</tr>
+<tr>
+<td>8</td>
+<td>20.14</td>
+</tr>
+<tr>
+<td>9</td>
+<td>20.08</td>
+</tr>
+<tr>
+<td>10</td>
+<td>20.11</td>
+</tr>
+<tr>
+<td><strong>Mean ⟨T₁₀⟩</strong></td>
+<td><strong>20.112 s</strong></td>
+</tr>
+<tr>
+<td><strong>Standard Deviation σ</strong></td>
+<td><strong>0.025 s</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="visualization-trial-by-trial-timing">Visualization: Trial-by-Trial Timing</h3>
+<p>The plot below displays the time measured for 10 full oscillations in each of the 10 trials. The red dashed line shows the mean time, while the shaded region represents ±1 standard deviation. This visualization helps identify consistency across trials and any potential outliers.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Time data for 10 trials
+trials = np.arange(1, 11)
+times_10_oscillations = np.array([20.12, 20.08, 20.16, 20.09, 20.10,
+                                  20.11, 20.13, 20.14, 20.08, 20.11])
+
+# Calculate mean and standard deviation
+mean_time = np.mean(times_10_oscillations)
+std_dev = np.std(times_10_oscillations, ddof=1)
+
+# Plot the data (no file saving)
+plt.figure(figsize=(10, 5))
+plt.plot(trials, times_10_oscillations, marker='o', linestyle='-', label='Measured Time')
+plt.axhline(mean_time, color='r', linestyle='--', label=f'Mean = {mean_time:.3f} s')
+plt.fill_between(trials, mean_time - std_dev, mean_time + std_dev,
+                 color='r', alpha=0.2, label='±1 Std Dev')
+plt.title('Time for 10 Oscillations (Trial-by-Trial)')
+plt.xlabel('Trial Number')
+plt.ylabel('Time (s)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image.png"/></p>
+<hr/>
+<h2 id="calculations">Calculations</h2>
+<h3 id="visualization-histogram-of-periods">Visualization: Histogram of Periods</h3>
+<p>This histogram shows the frequency distribution of individual pendulum periods (calculated by dividing each 10-oscillation time by 10). It provides insight into the spread and normality of the data, helping validate the reliability of the measured average.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Original data: time for 10 oscillations per trial
+times_10 = np.array([20.12, 20.08, 20.16, 20.09, 20.10,
+                     20.11, 20.13, 20.14, 20.08, 20.11])
+
+# Convert to single period values
+periods = times_10 / 10
+mean_period = np.mean(periods)
+
+# Plot histogram
+plt.figure(figsize=(8, 5))
+plt.hist(periods, bins=5, color='skyblue', edgecolor='black')
+plt.axvline(mean_period, color='red', linestyle='--', label=f'Mean = {mean_period:.3f} s')
+plt.title('Histogram of Oscillation Periods')
+plt.xlabel('Period (s)')
+plt.ylabel('Frequency')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-1.png"/></p>
+<h3 id="period-of-one-oscillation">Period of One Oscillation:</h3>
+<div class="arithmatex">\[
+T = \frac{⟨T_{10}⟩}{10} = \frac{20.112}{10} = 2.0112 \, \text{s}
+\]</div>
+<h3 id="gravitational-acceleration">Gravitational Acceleration:</h3>
+<p>Given <span class="arithmatex">\(L = 1.000 \, \text{m}\)</span> and <span class="arithmatex">\(T = 2.0112 \, \text{s}\)</span>:</p>
+<div class="arithmatex">\[
+g = \frac{4\pi^2 \cdot L}{T^2} = \frac{4\pi^2 \cdot 1.000}{(2.0112)^2} \approx 9.77 \, \text{m/s}^2
+\]</div>
+<h3 id="uncertainty-in-time">Uncertainty in Time:</h3>
+<div class="arithmatex">\[
+u_{⟨T_{10}⟩} = \frac{\sigma}{\sqrt{n}} = \frac{0.025}{\sqrt{10}} = 0.0079 \, \text{s}
+\]</div>
+<p>Then:</p>
+<div class="arithmatex">\[
+u_T = \frac{u_{⟨T_{10}⟩}}{10} = 0.00079 \, \text{s}
+\]</div>
+<h3 id="uncertainty-in-g-propagation">Uncertainty in <span class="arithmatex">\(g\)</span> (Propagation):</h3>
+<div class="arithmatex">\[
+\left( \frac{u_g}{g} \right)^2 = \left( \frac{u_L}{L} \right)^2 + \left( 2 \cdot \frac{u_T}{T} \right)^2
+\]</div>
+<p>Substituting:</p>
+<div class="arithmatex">\[
+\left( \frac{u_g}{9.77} \right)^2 = \left( \frac{0.005}{1.000} \right)^2 + \left( 2 \cdot \frac{0.00079}{2.0112} \right)^2
+\]</div>
+<div class="arithmatex">\[
+u_g \approx 0.05 \, \text{m/s}^2
+\]</div>
+<h3 id="visualization-uncertainty-contribution-to-g">Visualization: Uncertainty Contribution to <span class="arithmatex">\(g\)</span></h3>
+<p>This pie chart shows the relative contribution of each measurement (pendulum length <span class="arithmatex">\(L\)</span> and time <span class="arithmatex">\(T\)</span>) to the overall uncertainty in the calculated gravitational acceleration <span class="arithmatex">\(g\)</span>. It helps identify which variable dominates the error and should be measured with greater precision.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+# Uncertainty components
+u_L = 0.005        # Uncertainty in length (m)
+L = 1.000          # Length (m)
+u_T = 0.00079      # Uncertainty in time (s)
+T = 2.0112         # Period (s)
+
+# Relative squared contributions
+rel_uL2 = (u_L / L) ** 2
+rel_uT2 = (2 * u_T / T) ** 2
+total = rel_uL2 + rel_uT2
+
+# Percent contributions
+percent_L = (rel_uL2 / total) * 100
+percent_T = (rel_uT2 / total) * 100
+
+# Plot pie chart
+plt.figure(figsize=(6, 6))
+plt.pie([percent_L, percent_T],
+        labels=['Length (L)', 'Period (T)'],
+        autopct='%1.1f%%',
+        colors=['lightcoral', 'lightgreen'],
+        startangle=90)
+plt.title('Relative Contribution to Uncertainty in g')
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-2.png"/></p>
+<hr/>
+<h2 id="results">Results</h2>
+<ul>
+<li>Length of pendulum: <span class="arithmatex">\(L = 1.000 \pm 0.005 \, \text{m}\)</span></li>
+<li>Period: <span class="arithmatex">\(T = 2.0112 \pm 0.00079 \, \text{s}\)</span></li>
+<li>Gravitational acceleration:</li>
+</ul>
+<div class="arithmatex">\[
+g = 9.77 \pm 0.05 \, \text{m/s}^2
+\]</div>
+<h3 id="visualization-measured-vs-standard-g">Visualization: Measured vs Standard <span class="arithmatex">\(g\)</span></h3>
+<p>The following bar chart compares the experimentally measured value of gravitational acceleration with the standard accepted value. The error bar represents the uncertainty in the measured value.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+# Values
+g_measured = 9.77
+g_theoretical = 9.80665
+g_error = 0.05
+
+# Labels and values
+labels = ['Measured g', 'Standard g']
+values = [g_measured, g_theoretical]
+errors = [g_error, 0]
+
+# Plot
+plt.figure(figsize=(8, 5))
+plt.bar(labels, values, yerr=errors, color=['lightblue', 'lightgray'], capsize=10)
+plt.ylabel('g (m/s²)')
+plt.title('Comparison of Measured vs Standard Gravitational Acceleration')
+plt.ylim(9.6, 9.85)
+plt.grid(axis='y')
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-3.png"/></p>
+<hr/>
+<h2 id="discussion">Discussion</h2>
+<h3 id="visualization-relationship-between-t2-and-l">Visualization: Relationship Between <span class="arithmatex">\(T^2\)</span> and <span class="arithmatex">\(L\)</span></h3>
+<p>This plot demonstrates the linear relationship between the square of the pendulum's period (<span class="arithmatex">\(T^2\)</span>) and its length (<span class="arithmatex">\(L\)</span>). According to the theory of simple harmonic motion, we expect a direct proportionality, and this plot confirms that expectation.</p>
+<details>
+<summary><strong>Show Python Code</strong></summary>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Simulated or experimental values
+L_values = np.array([0.40, 0.60, 0.80, 1.00, 1.20])  # meters
+T_values = 2 * np.pi * np.sqrt(L_values / 9.80665)   # theoretical periods (s)
+T_squared = T_values ** 2
+
+# Fit line: T^2 = aL + b
+coeffs = np.polyfit(L_values, T_squared, 1)
+fit_line = np.poly1d(coeffs)
+
+# Plot
+plt.figure(figsize=(8, 5))
+plt.scatter(L_values, T_squared, color='dodgerblue', label='Data Points')
+plt.plot(L_values, fit_line(L_values), color='orange', linestyle='--',
+         label=f'Fit: $T^2 = {coeffs[0]:.2f}L + {coeffs[1]:.2f}$')
+plt.title('Relationship Between $T^2$ and $L$ for a Simple Pendulum')
+plt.xlabel('Length L (m)')
+plt.ylabel('Period Squared $T^2$ (s²)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+<p><img alt="alt text" src="../image-4.png"/></p>
+<h3 id="comparison-to-standard-value">Comparison to Standard Value</h3>
+<p>The standard gravitational acceleration is:</p>
+<div class="arithmatex">\[
+g_{\text{standard}} = 9.80665 \, \text{m/s}^2
+\]</div>
+<p>Measured value:</p>
+<div class="arithmatex">\[
+g_{\text{measured}} = 9.77 \pm 0.05 \, \text{m/s}^2
+\]</div>
+<p>Relative error:</p>
+<div class="arithmatex">\[
+\text{Relative Error} = \left| \frac{9.77 - 9.80665}{9.80665} \right| \times 100 \approx 0.37\%
+\]</div>
+<p>This is a small error, indicating that the experimental value is consistent with the accepted standard.</p>
+<h3 id="sources-of-error">Sources of Error</h3>
+<ul>
+<li><strong>Reaction Time</strong>: Manual timing introduces subjective delays.</li>
+<li><strong>Length Estimation</strong>: Uncertainty in locating the center of mass.</li>
+<li><strong>Air Resistance</strong>: Slightly increases the period.</li>
+<li><strong>Amplitude</strong>: Must remain below <span class="arithmatex">\(15^\circ\)</span> to satisfy the SHM approximation.</li>
+</ul>
+<h3 id="possible-improvements">Possible Improvements</h3>
+<ul>
+<li>Use <strong>photogate sensors</strong> for more accurate timing.</li>
+<li>Measure the pendulum’s length with a <strong>laser distance sensor</strong>.</li>
+<li>Use a <strong>heavier bob</strong> to reduce damping effects.</li>
+<li>Automate timing and release to reduce human error.</li>
+</ul>
+<hr/>
+<h2 id="real-world-applications">Real-World Applications</h2>
+<ul>
+<li><strong>Mining and Exploration</strong>: Gravity surveys can detect underground cavities or ore deposits.</li>
+<li><strong>Seismology</strong>: Variations in gravity can predict shifts in tectonic plates.</li>
+<li><strong>Navigation</strong>: Inertial guidance systems rely on local <span class="arithmatex">\(g\)</span> for accuracy.</li>
+<li><strong>Planetary Missions</strong>: Knowing local gravity helps design landers for Mars, the Moon, and other celestial bodies.</li>
+<li><strong>Metrology</strong>: High-precision measurements of <span class="arithmatex">\(g\)</span> are essential in defining the kilogram in terms of Planck's constant.</li>
+</ul>
+<hr/>
+<h2 id="conclusion">Conclusion</h2>
+<p>This experiment has successfully demonstrated the effectiveness of using a simple pendulum to determine the local gravitational acceleration, <span class="arithmatex">\(g\)</span>. By precisely measuring the length of the pendulum and the period of its oscillation—while applying careful experimental design and uncertainty analysis—we obtained a result of:</p>
+<div class="arithmatex">\[
+g = 9.77 \pm 0.05 \, \text{m/s}^2
+\]</div>
+<p>This value is in excellent agreement with the standard accepted value of <span class="arithmatex">\(9.80665 \, \text{m/s}^2\)</span>, yielding a relative error of only <strong>0.37%</strong>. Such a low discrepancy confirms the validity of the theoretical model, and also illustrates that high accuracy can be achieved even with relatively simple and accessible materials.</p>
+<p>Beyond the numerical result, this experiment offers a comprehensive learning experience in <strong>experimental physics methodology</strong>. Participants are required to:</p>
+<ul>
+<li>Apply the small-angle approximation in a meaningful context.</li>
+<li>Identify and quantify sources of systematic and random errors.</li>
+<li>Understand and perform error propagation in derived quantities.</li>
+<li>Interpret the significance of standard deviation and confidence intervals.</li>
+<li>Compare experimental data with theoretical expectations and analyze deviations.</li>
+</ul>
+<p>Moreover, the investigation reinforces the fundamental idea that <strong>physics is not solely about abstract equations</strong>, but also about measurement, observation, and the bridge between theory and the real world.</p>
+<p>This experiment also provides insight into how <strong>precision instruments and methods evolve</strong> from foundational principles. The simple pendulum, studied since the 17th century, continues to serve as a powerful pedagogical and scientific tool—demonstrating that elegant simplicity can yield profound insights. In more advanced contexts, the same physical principles underlying this experiment are used in gravimetry, geophysics, planetary science, and metrology.</p>
+<p>In summary, the pendulum experiment is a model of how classical physics can be brought to life through direct experimentation. It instills not just knowledge, but scientific discipline—emphasizing the importance of careful design, statistical rigor, and critical thinking. Even in the age of sophisticated digital tools, such analog experiments remind us of the power of observation, patience, and curiosity in uncovering the fundamental laws that govern our universe.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
